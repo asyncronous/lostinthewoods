@@ -35,12 +35,34 @@ def main_game_loop(master_save, curr_save)
         
         sleep 2
 
+        rand_area = ""
+        rand_enc = ""
         loop do
-            # choose random area from area descriptions list
-            rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
-            
+            # choose random area from area descriptions list, make sure you dont get same in a row
+            if rand_area != ""
+                last_area = rand_area
+                loop do
+                    rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
+                    if rand_area != last_area
+                        break
+                    end
+                end
+            else
+                rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
+            end
+
             # choose random encounter from encounter list
-            rand_enc = encounters[rand(0..(encounters.length - 1))]
+            if rand_area != ""
+                last_enc = rand_enc
+                loop do
+                    rand_enc = encounters[rand(0..(encounters.length - 1))]
+                    if rand_enc != last_enc
+                        break
+                    end
+                end
+            else
+                rand_enc = encounters[rand(0..(encounters.length - 1))]
+            end
             
             # if hero died to this area, display alt description
             if hero.deaths.include?(rand_area["id"])
@@ -99,7 +121,7 @@ def main_game_loop(master_save, curr_save)
             item_to_remove = rand_enc[condition]["loss"]["items"]
             item_to_remove.each {|item| hero.inventory.delete(item)}
     
-            #add items
+            #add items / check for duplicates and swap item if inv full
             item_to_add = rand_enc[condition]["benefit"]["items"]
             item_to_add.each do |item| 
                 if hero.inventory.include?(item) == false
@@ -162,7 +184,7 @@ def main_game_loop(master_save, curr_save)
             # if won the game
             if dead == false && num_areas > 7
                 prompt = TTY::Prompt.new(active_color: :red)
-                status = "You have escaped the forest!"
+                status = "You have escaped the forest!\n"
                 choices = ["Back to Title Screen"]
                 answer = prompt.select(status, choices)
 
@@ -235,12 +257,12 @@ current_save = nil
 
 #main title screen loop
 loop do
-    puts "Lost in the Woods\n\n"
+    puts "Lost in the Woods"
     # puts Lost In The Woods in big ascii letters to the screen
     # also put trees and owls and stuff
     
     title_prompt = TTY::Prompt.new(active_color: :red)
-    greeting = "\n\n"
+    greeting = "\n"
     choices = ["Start", "Save-Games", "Help", "Exit"]
     answer = title_prompt.select(greeting, choices)
     
@@ -270,7 +292,7 @@ loop do
                 name: final_input,
                 health: 100,
                 sanity: 100,
-                inventory: ["revolver"],
+                inventory: ["revolver", "cross", "trinket"],
                 deaths: []
             }
     
@@ -428,30 +450,3 @@ loop do
         exit
     end
 end
-
-
-# save = [
-#     {
-#         name: "ben",
-#         inventory: ["rock", "book", "wand"]
-#     },
-#     {
-#         name: "george",
-#         inventory: ["rock", "book", "wand"]
-#     }
-# ]
-
-# File.write("save.json", JSON.generate(save))
-
-# save = JSON.parse(File.read("save.json", symbolize_names: true))
-
-# save.each do |save_game|
-#     name = save_game["name"]
-#     init_string = "#{name} has "
-#     inv = save_game["inventory"]
-#     inv.each do |value|
-#         init_string += value + " "
-#     end
-
-#     puts init_string
-# end

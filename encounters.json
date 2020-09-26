@@ -1,8 +1,8 @@
 [
     {
         "id": "vampire",
-        "base_description": "A vampire materializes in front of you",
-        "died_description": "You startle backwards as the Vampire from before comes back for more of your blood!",
+        "base_description": "A vampire materializes in front of you! He looks hungry...",
+        "died_description": "You startle backwards as a vampire appears in front of you! You can already feel your blood rushing...",
         "success_condition": {
             "item": "book",
             "description": "You tear the book from your waistcoat as the vampires grin widens, revealing his sharp incisors\n You begin reciting esoteric nonsense, and the vampire screams! After a sharp crack, the vampire is gone, leaving only a key. You feel some of your sanity return",
@@ -11,7 +11,7 @@
         },
         "neutral_condition": {
             "item": "cross",
-            "description": "Your tear the cross from your neck, brandishing it like a weapon. The vampire laughs mockingly, and in the blink of eye is biting into your neck. You thrust the cross into his forehead and he screams!\n After a sharp crack, the vampire is gone, leaving only a key. You feel drained, but alive.",
+            "description": "Your tear the cross from your neck, brandishing it like a weapon. The vampire laughs, and in the blink of eye is biting into your neck. You thrust the cross into his forehead and he screams!\n After a sharp crack, the vampire is gone, leaving only a key. You feel drained, but alive.",
             "benefit": {"health": 0, "sanity": 0, "items": ["key"]},
             "loss": {"health": 30, "sanity": 10, "items": []}
         },
@@ -57,12 +57,12 @@
             "item": "lamp",
             "description": "You smash the lamp against the vines and yourself, setting you both alight! As you try to put out the flames the vines shrink back beneath into the dirt.\n You are moderately burned and traumatised",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 20, "sanity": 20, "items": ["lamp"]}
+            "loss": {"health": 50, "sanity": 30, "items": ["lamp"]}
         },
         "failure_condition": {
-            "description": "Whatever you try to do, it doesn't work, and you quickly lose consciousness. When you awaken you can barely breathe, your mind is hazy. You are on deaths door",
+            "description": "Whatever you try to do, it doesn't work, and you quickly lose consciousness. When you awaken you find it hard to breathe, but you're alive",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 50, "sanity": 50, "items": []}
+            "loss": {"health": 20, "sanity": 50, "items": []}
         }
     },
     {
@@ -76,15 +76,37 @@
             "loss": {"health": 0, "sanity": 0, "items": ["vines"]}
         },
         "neutral_condition": {
-            "item": "pocketwatch",
-            "description": "'Theres no telling when one may need to tell the time'\n The man takes the trinket and gives you a lamp in return.\n You're not sure if that was the right choice.\n",
-            "benefit": {"health": 0, "sanity": 0, "items": ["lamp"]},
-            "loss": {"health": 20, "sanity": 20, "items": ["pocketwatch"]}
+            "item": "trinket",
+            "description": "'Theres no telling when one may need to tell the time'\n The man takes the trinket and gives you a pocketwatch in return.\n You feel uneasy.\n",
+            "benefit": {"health": 0, "sanity": 0, "items": ["pocketwatch"]},
+            "loss": {"health": 0, "sanity": 20, "items": ["trinket"]}
         },
         "failure_condition": {
             "description": "The man refuses your offer.\n In return for wasting his time he shoots you with a crossbow bolt and vanishes.\n Luckily it's only in the shoulder, still hurts though.",
             "benefit": {"health": 0, "sanity": 0, "items": ["bolt"]},
             "loss": {"health": 20, "sanity": 10, "items": []}
+        }
+    },
+    {
+        "id": "fog",
+        "base_description": "A fog appears in the distance, moving alarmingly fast in your direction!",
+        "died_description": "A deathly black fog appears in the distance, coming straight for you. You already find it hard to breathe",
+        "success_condition": {
+            "item": "lamp",
+            "description": "You shine the lamp directly into the fog, as it dissipates you could have sworn you heard a high-pitched squeel",
+            "benefit": {"health": 0, "sanity": 10, "items": []},
+            "loss": {"health": 0, "sanity": 0, "items": []}
+        },
+        "neutral_condition": {
+            "item": "book",
+            "description": "You take out the book and fumble for a page about death fogs.\n You finish reading just as the fog surrounds you and fills your lungs!\n As it dissipates you could have sworn you heard a high-pitched squeel ",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 0, "sanity": 20, "items": []}
+        },
+        "failure_condition": {
+            "description": "You fumble around for anything that might be of use, but before long you can't see through the fog, and you begin to suffocate. When you awaken, you find it hard to breathe",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 40, "sanity": 10, "items": []}
         }
     }
 ]

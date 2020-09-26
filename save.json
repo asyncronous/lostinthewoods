@@ -1,1 +1,1 @@
-[{"name":"Ben","health":100,"sanity":100,"inventory":["revolver"],"deaths":[]}]
+[{"name":"Ben","health":100,"sanity":100,"inventory":["revolver","bolt","knife","book","lamp","key"],"deaths":[]},{"name":"Ash","health":100,"sanity":100,"inventory":["revolver"],"deaths":[]}]
