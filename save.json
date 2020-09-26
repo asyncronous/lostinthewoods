@@ -1,1 +1,1 @@
-[{"name":"Ben","health":100,"sanity":100,"inventory":["revolver", "knife", "book", "lamp"],"deaths":[]},{"name":"George","health":100,"sanity":100,"inventory":["revolver"],"deaths":[]}]
+[{"name":"Ben","health":100,"sanity":100,"inventory":["revolver","knife","book","key"],"deaths":["thug","clearing","vines","flowers","vampire","clearing","vines","flowers","thug","clearing","thug","shack","vines","clearing","vampire","flowers","vampire","flowers","vampire","clearing","vines","clearing"]},{"name":"George","health":100,"sanity":100,"inventory":["revolver"],"deaths":[]}]

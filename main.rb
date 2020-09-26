@@ -16,7 +16,7 @@ class Hero
 
 end
 
-def main_game_loop(curr_save)
+def main_game_loop(master_save, curr_save)
     # generate hero from save data
     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
 
@@ -35,83 +35,138 @@ def main_game_loop(curr_save)
         
         sleep 2
 
-        # choose random area from area descriptions list
-        rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
-        
-        # choose random encounter from encounter list
-        rand_enc = encounters[rand(0..(encounters.length - 1))]
-        
-        # if hero died to this area, display alt description
-        if hero.deaths.include?(rand_area["id"])
-            puts rand_area["died_description"]
-        # else display normal description
-        else
-            puts rand_area["base_description"]
-        end
-
-        sleep 2
-
-        if hero.deaths.include?(rand_enc["id"])
-            puts rand_enc["died_description"] + "\n\n"
-        # else display normal description
-        else
-            puts rand_enc["base_description"] + "\n\n"
-        end
-
-        sleep 2
-
-        item_list = []
-        hero.inventory.each {|item| item_list << item}
-        # item_list << "Create New Save"
-    
-        item_prompt = TTY::Prompt.new(active_color: :red)
-        question = "You have the following items available, what do you choose?:\n"
-        # choices = [item_action1, item_action2, item_action3]
-        item = item_prompt.select(question, item_list)
-        system("clear")
-        
-        puts "You use your #{item} against the #{rand_enc["id"]}!\n\n"
-        
-        condition = ""
-        if item == rand_enc["success_condition"]["item"]
-            condition = "success_condition"
-        elsif item == rand_enc["neutral_condition"]["item"]
-            condition = "neutral_condition"
-        else
-            condition = "failure_condition"
-        end
-
-        puts rand_enc[condition]["description"] + "\n"
-        #incr health
-        hero.health += rand_enc[condition]["benefit"]["health"]
-        #decr health
-        hero.health -= rand_enc[condition]["loss"]["health"]
-
-        #incr sanity
-        hero.sanity += rand_enc[condition]["benefit"]["sanity"]
-        #decr sanity
-        hero.sanity -= rand_enc[condition]["loss"]["sanity"]
-
-        #remove items
-        item_to_remove = rand_enc[condition]["loss"]["items"]
-        item_to_remove.each {|item| hero.inventory.delete(item)}
-
-        #add items
-        item_to_add = rand_enc[condition]["benefit"]["items"]
-        item_to_add.each do |item| 
-            if hero.inventory.include?(item) == false
-                hero.inventory << item
+        loop do
+            # choose random area from area descriptions list
+            rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
+            
+            # choose random encounter from encounter list
+            rand_enc = encounters[rand(0..(encounters.length - 1))]
+            
+            # if hero died to this area, display alt description
+            if hero.deaths.include?(rand_area["id"])
+                puts rand_area["died_description"]
+            # else display normal description
+            else
+                puts rand_area["base_description"]
             end
-        end
-
-        status = "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory}\n"
-        
+            
+            sleep 2
     
-        prompt = TTY::Prompt.new(active_color: :red)
-        choices = "Continue"
-        answer = prompt.select(status, choices)
-        system("clear")
-        # gets
+            if hero.deaths.include?(rand_enc["id"])
+                puts rand_enc["died_description"] + "\n\n"
+            # else display normal description
+            else
+                puts rand_enc["base_description"] + "\n\n"
+            end
+    
+            sleep 2
+            
+            item_list = []
+            hero.inventory.each {|item| item_list << item}
+            # item_list << "Create New Save"
+        
+            item_prompt = TTY::Prompt.new(active_color: :red)
+            question = "You have the following items available, what do you choose?:\n"
+            # choices = [item_action1, item_action2, item_action3]
+            item = item_prompt.select(question, item_list)
+            system("clear")
+            
+            puts "You use your #{item} against the #{rand_enc["id"]}!\n\n"
+            
+            condition = ""
+            if item == rand_enc["success_condition"]["item"]
+                condition = "success_condition"
+            elsif item == rand_enc["neutral_condition"]["item"]
+                condition = "neutral_condition"
+            else
+                condition = "failure_condition"
+            end
+            
+            puts rand_enc[condition]["description"] + "\n"
+            #incr health
+            hero.health += rand_enc[condition]["benefit"]["health"]
+            #decr health
+            hero.health -= rand_enc[condition]["loss"]["health"]
+    
+            #incr sanity
+            hero.sanity += rand_enc[condition]["benefit"]["sanity"]
+            #decr sanity
+            hero.sanity -= rand_enc[condition]["loss"]["sanity"]
+    
+            #remove items
+            item_to_remove = rand_enc[condition]["loss"]["items"]
+            item_to_remove.each {|item| hero.inventory.delete(item)}
+    
+            #add items
+            item_to_add = rand_enc[condition]["benefit"]["items"]
+            item_to_add.each do |item| 
+                if hero.inventory.include?(item) == false
+                    hero.inventory << item
+                end
+            end
+    
+            num_areas += 1
+            status = "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory}\n"
+    
+            #dead
+            dead = false
+            if(hero.health <= 0)
+                # add death to deaths
+                hero.deaths << rand_enc["id"]
+                hero.deaths << rand_area["id"]
+                dead = true
+                #insane
+                if(hero.sanity <= 0)
+                    hero.inventory = ["revolver"]
+                end
+            end
+    
+            #update save file 
+            master_save.find do |save_game| save_game["name"] == hero
+                if save_game["name"] == hero.name
+                    save_game["inventory"] = hero.inventory
+                    save_game["deaths"] = hero.deaths
+                end
+            end
+    
+            # save to file
+            File.write("save.json", JSON.generate(master_save))
+    
+            
+            # if won the game
+            if dead == false && num_areas > 7
+                prompt = TTY::Prompt.new(active_color: :red)
+                status = "You have escaped the forest!"
+                choices = ["Back to Title Screen"]
+                answer = prompt.select(status, choices)
+
+                system("clear")
+                return
+                
+            # if dead
+            elsif dead == true
+                prompt = TTY::Prompt.new(active_color: :red)
+                status = "You are Dead"
+                choices = ["Wake Up", "Back to Title Screen"]
+                answer = prompt.select(status, choices)
+                
+                if answer == "Wake Up"
+                    system("clear")
+                    hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
+                    break
+                
+                elsif answer == "Back to Title Screen"
+                    system("clear")
+                    return
+                end
+            end
+
+            prompt = TTY::Prompt.new(active_color: :red)
+            choices = "Continue"
+            answer = prompt.select(status, choices)
+            system("clear")
+            # gets
+        end
     end
 end
 
@@ -245,7 +300,7 @@ loop do
                     system("clear")
 
                     # begin main game loop
-                    main_game_loop(current_save)
+                    main_game_loop(save, current_save)
                 end
             else
                 # set current save to save game
@@ -264,7 +319,7 @@ loop do
                     system("clear")
 
                     # begin main game loop
-                    main_game_loop(current_save)
+                    main_game_loop(save, current_save)
                 end
             end
         end
