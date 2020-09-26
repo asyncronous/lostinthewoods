@@ -20,18 +20,101 @@ def main_game_loop(curr_save)
     # generate hero from save data
     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
 
+    # generate array of descriptions from files
+    area_descriptions = JSON.parse(File.read("area_descriptions.json", symbolize_names: true))
 
+    # generate array of encounters from files
+    encounters = JSON.parse(File.read("encounters.json", symbolize_names: true))
+
+    # number of forest areas survived
+    num_areas = 0
+
+    # begin loop
+    loop do
+        puts "The howl of a wolf jolts me awake! I am... in a forest? I've never been here before... but it seems familiar all the same\n\n"
+        
+        sleep 2
+
+        # choose random area from area descriptions list
+        rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
+        
+        # choose random encounter from encounter list
+        rand_enc = encounters[rand(0..(encounters.length - 1))]
+        
+        # if hero died to this area, display alt description
+        if hero.deaths.include?(rand_area["id"])
+            puts rand_area["died_description"]
+        # else display normal description
+        else
+            puts rand_area["base_description"]
+        end
+
+        sleep 2
+
+        if hero.deaths.include?(rand_enc["id"])
+            puts rand_enc["died_description"] + "\n\n"
+        # else display normal description
+        else
+            puts rand_enc["base_description"] + "\n\n"
+        end
+
+        sleep 2
+
+        item_list = []
+        hero.inventory.each {|item| item_list << item}
+        # item_list << "Create New Save"
+    
+        item_prompt = TTY::Prompt.new(active_color: :red)
+        question = "You have the following items available, what do you choose?:\n"
+        # choices = [item_action1, item_action2, item_action3]
+        item = item_prompt.select(question, item_list)
+        system("clear")
+        
+        puts "You use your #{item} against the #{rand_enc["id"]}!\n\n"
+        
+        condition = ""
+        if item == rand_enc["success_condition"]["item"]
+            condition = "success_condition"
+        elsif item == rand_enc["neutral_condition"]["item"]
+            condition = "neutral_condition"
+        else
+            condition = "failure_condition"
+        end
+
+        puts rand_enc[condition]["description"] + "\n"
+        #incr health
+        hero.health += rand_enc[condition]["benefit"]["health"]
+        #decr health
+        hero.health -= rand_enc[condition]["loss"]["health"]
+
+        #incr sanity
+        hero.sanity += rand_enc[condition]["benefit"]["sanity"]
+        #decr sanity
+        hero.sanity -= rand_enc[condition]["loss"]["sanity"]
+
+        #remove items
+        item_to_remove = rand_enc[condition]["loss"]["items"]
+        item_to_remove.each {|item| hero.inventory.delete(item)}
+
+        #add items
+        item_to_add = rand_enc[condition]["benefit"]["items"]
+        item_to_add.each do |item| 
+            if hero.inventory.include?(item) == false
+                hero.inventory << item
+            end
+        end
+
+        status = "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory}\n"
+        
+    
+        prompt = TTY::Prompt.new(active_color: :red)
+        choices = "Continue"
+        answer = prompt.select(status, choices)
+        system("clear")
+        # gets
+    end
 end
 
-# main
-
-# puts Lost In The Woods in big ascii letters to the screen
-# also put trees and owls and stuff
-
-# if help is chosen display help information, then display menu with single option, Exit, which returns to title screen
-# if exit is chosen terminate the application
-
-save = []
 
 def generate_savegames
     save_games = JSON.parse(File.read("save.json", symbolize_names: true))
@@ -52,12 +135,19 @@ def alphaNum_err(result)
     raise NotAlphaNumeric if result == nil
 end
 
+system("clear")
+
+# initialise save variables
+save = []
 save = generate_savegames
 current_save = nil
 
-puts "Lost in the Woods\n\n"
-
+#main title screen loop
 loop do
+    puts "Lost in the Woods\n\n"
+    # puts Lost In The Woods in big ascii letters to the screen
+    # also put trees and owls and stuff
+    
     item_action1 = "Start"
     item_action2 = "Help"
     item_action3 = "Exit"
@@ -141,21 +231,41 @@ loop do
     
                 # set current save to save game
                 current_save = save.find {|save_game| save_game["name"] == final_input}
-                puts "Currently playing as #{final_input}"
 
-                sleep 1
+                # wake up prompt
+                title_prompt = TTY::Prompt.new(active_color: :red)
+                wake_up = "Wake Up?"
+                choices = ["Yes", "Back to Title Screen"]
+                answer = title_prompt.select(wake_up, choices)
                 system("clear")
-                # begin main game loop
-                main_game_loop(current_save)
+
+                if answer == choices[0]
+                    puts "Currently playing as #{final_input}"
+                    sleep 1
+                    system("clear")
+
+                    # begin main game loop
+                    main_game_loop(current_save)
+                end
             else
                 # set current save to save game
                 current_save = save.find {|save_game| save_game["name"] == answer}
-                puts "Currently playing as #{answer}"
-
-                sleep 1
+                
+                # wake up prompt
+                title_prompt = TTY::Prompt.new(active_color: :red)
+                wake_up = "Wake Up?"
+                choices = ["Yes", "Back to Title Screen"]
+                selection = title_prompt.select(wake_up, choices)
                 system("clear")
-                # begin main game loop
-                main_game_loop(current_save)
+
+                if selection == choices[0]
+                    puts "Currently playing as #{answer}"
+                    sleep 1
+                    system("clear")
+
+                    # begin main game loop
+                    main_game_loop(current_save)
+                end
             end
         end
         

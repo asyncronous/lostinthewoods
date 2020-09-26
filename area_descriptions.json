@@ -1,0 +1,17 @@
+[
+    {
+        "id": "clearing",
+        "base_description": "You have entered a clearing",
+        "died_description": "This clearing makes you feel ill"
+    },
+    {
+        "id": "shack",
+        "base_description": "You come across a shack. Wary, you wander inside.",
+        "died_description": "You feel as though you've seen this shack before, it makes you feel ill"
+    },
+    {
+        "id": "flowers",
+        "base_description": "Patches of flowers litter the forest floor, but without a gap in the canopy, how have they grown?",
+        "died_description": "The flowers that litter the forest floor smell sickly sweet, you can almost taste blood on your lips"
+    }
+]

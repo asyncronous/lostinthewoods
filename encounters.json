@@ -1,0 +1,68 @@
+[
+    {
+        "id": "vampire",
+        "base_description": "A vampire materializes in front of you",
+        "died_description": "You startle backwards as the Vampire from before comes back for more of your blood!",
+        "success_condition": {
+            "item": "book",
+            "description": "You tear the book from your waistcoat as the vampires grin widens, revealing his sharp incisors\n You begin reciting esoteric nonsense, and the vampire screams! After a sharp crack, the vampire is gone, leaving only a key. You feel some of your sanity return",
+            "benefit": {"health": 0, "sanity": 10, "items": ["key"]},
+            "loss": {"health": 0, "sanity": 0, "items": []}
+        },
+        "neutral_condition": {
+            "item": "cross",
+            "description": "Your tear the cross from your neck, brandishing it like a weapon. The vampire laughs mockingly, and in the blink of eye is biting into your neck. You thrust the cross into his forehead and he screams!\n After a sharp crack, the vampire is gone, leaving only a key. You feel drained, but alive.",
+            "benefit": {"health": 0, "sanity": 0, "items": ["key"]},
+            "loss": {"health": 20, "sanity": 10, "items": ["lamp"]}
+        },
+        "failure_condition": {
+            "description": "You struggle to find something useful, to no avail. In the blink of an eye the vampire is biting into your neck, and all goes black",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 100, "sanity": 20, "items": []}
+        }
+    },
+    {
+        "id": "thug",
+        "base_description": "A thug appears from beside you, how did he get there?! He flashes a knife at you and demands all your valuables",
+        "died_description": "A thug appears from beside you, how did he get there?! He flashes a knife and.. looks confused.. then shakes his head and demands all your valuables",
+        "success_condition": {
+            "item": "revolver",
+            "description": "You fire your revolver at the thugs centre of mass, dropping him. You feel energized, but sickened.\n You relieve the man of his knife, and find a curious book in his waistcoat",
+            "benefit": {"health": 10, "sanity": 0, "items": ["knife", "book"]},
+            "loss": {"health": 0, "sanity": 10, "items": []}
+        },
+        "neutral_condition": {
+            "item": "knife",
+            "description": "You pull out your own knife, hoping to best the thug in a duel.\n Alas, you are no knife fighter. While you survived the fight you now resemble a pincushion\n You are bleeding, but alive. \n You relieve the man of his knife, and find a curious book in his waistcoat",
+            "benefit": {"health": 0, "sanity": 0, "items": ["knife", "book"]},
+            "loss": {"health": 20, "sanity": 20, "items": ["lamp"]}
+        },
+        "failure_condition": {
+            "description": "The request for valuables was a ruse! He's a madman! No matter what you do, the thug decends upon you, and everything goes black.\n When you awaken your breathe is wheezy, like you body is covered in holes. Your mind is hazy. You are on deaths door",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 80, "sanity": 80, "items": []}
+        }
+    },
+    {
+        "id": "vines",
+        "base_description": "Vines snake up from the ground and wrap around you, slowly constricting",
+        "died_description": "Vines snake up from the ground and wrap around you, you start to thrash and panic with fear",
+        "success_condition": {
+            "item": "knife",
+            "description": "You successfully cut the vines before you asphyxiate. You feel energized",
+            "benefit": {"health": 10, "sanity": 10, "items": []},
+            "loss": {"health": 0, "sanity": 0, "items": []}
+        },
+        "neutral_condition": {
+            "item": "lamp",
+            "description": "You smash the lamp against the vines and yourself, setting you both alight! As you try to put out the flames the vines shrink back beneath into the dirt.\n You are moderately burned and traumatised",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 20, "sanity": 20, "items": ["lamp"]}
+        },
+        "failure_condition": {
+            "description": "Whatever you try to do, it doesn't work, and you quickly lose consciousness. When you awaken you can barely breathe, your mind is hazy. You are on deaths door",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 50, "sanity": 50, "items": []}
+        }
+    }
+]
