@@ -82,7 +82,9 @@ def main_game_loop(master_save, curr_save)
                 condition = "failure_condition"
             end
             
+            # encounter result
             puts rand_enc[condition]["description"] + "\n"
+
             #incr health
             hero.health += rand_enc[condition]["benefit"]["health"]
             #decr health
@@ -101,7 +103,31 @@ def main_game_loop(master_save, curr_save)
             item_to_add = rand_enc[condition]["benefit"]["items"]
             item_to_add.each do |item| 
                 if hero.inventory.include?(item) == false
-                    hero.inventory << item
+                    if hero.inventory.length >= 6
+                        item_list = []
+                        hero.inventory.each {|i| item_list << i}
+                        item_list << "Leave item"
+                    
+                        item_prompt = TTY::Prompt.new(active_color: :red)
+                        question = "Your inventory is full, choose an item to swap for #{item}:\n"
+                        # choices = [item_action1, item_action2, item_action3]
+                        item_to_swap = item_prompt.select(question, item_list)
+
+                        if item_to_swap != "Leave item"
+                            title_prompt = TTY::Prompt.new(active_color: :red)
+                            greeting = "Are you sure?\n"
+                            choices = ["Yes", "No"]
+                            answer = title_prompt.select(greeting, choices)
+                            system("clear")
+    
+                            if answer == "Yes"
+                                hero.inventory.delete(item_to_swap)
+                                hero.inventory << item
+                            end
+                        end
+                    else
+                        hero.inventory << item
+                    end
                 end
             end
     
@@ -142,7 +168,7 @@ def main_game_loop(master_save, curr_save)
 
                 system("clear")
                 return
-                
+
             # if dead
             elsif dead == true
                 prompt = TTY::Prompt.new(active_color: :red)
@@ -176,18 +202,28 @@ def generate_savegames
     return save_games
 end
 
-class NotAlphaNumeric < StandardError
-    def initialize(msg = "Invalid Input: Name must only use standard alpha-numeric characters a-z, A-Z, 0-9")
+class NotAlpha < StandardError
+    def initialize(msg = "Invalid Input: Name must only use standard alpha characters a-z and A-Z")
         super(msg)
     end
 end
 
-def check_if_alnum(input)
-    input =~ /[[:alnum:]]/
+class DuplicateName < StandardError
+    def initialize(msg = "Invalid Name: Another save game already has this name, choose another")
+        super(msg)
+    end
 end
 
-def alphaNum_err(result)
-    raise NotAlphaNumeric if result == nil
+def check_if_alpha(input)
+    input =~ /[[:alpha:]]/
+end
+
+def alpha_err(result)
+    raise NotAlpha if result == nil
+end
+
+def name_taken_err
+    raise DuplicateName
 end
 
 system("clear")
@@ -203,13 +239,9 @@ loop do
     # puts Lost In The Woods in big ascii letters to the screen
     # also put trees and owls and stuff
     
-    item_action1 = "Start"
-    item_action2 = "Help"
-    item_action3 = "Exit"
-    
     title_prompt = TTY::Prompt.new(active_color: :red)
-    greeting = "Title Screen\n"
-    choices = [item_action1, item_action2, item_action3]
+    greeting = "\n\n"
+    choices = ["Start", "Save-Games", "Help", "Exit"]
     answer = title_prompt.select(greeting, choices)
     
     system("clear")
@@ -223,8 +255,9 @@ loop do
             # alphanumeric check loop
             loop do
                 input = gets.chomp
+                system("clear")
                 begin
-                    input.each_char {|char| alphaNum_err(check_if_alnum(char))}
+                    input.each_char {|char| alpha_err(check_if_alpha(char))}
                     final_input = input
                     break
                 rescue => e 
@@ -244,7 +277,21 @@ loop do
             puts "New save added!"
             save << new_save
             File.write("save.json", JSON.generate(save))
-    
+
+            title_prompt = TTY::Prompt.new(active_color: :red)
+            wake_up = "Wake Up?"
+            choices = ["Yes", "Back to Title Screen"]
+            answer = title_prompt.select(wake_up, choices)
+            system("clear")
+
+            if answer == choices[0]
+                puts "Currently playing as #{final_input}"
+                sleep 1
+                system("clear")
+
+                # begin main game loop
+                main_game_loop(save, current_save)
+            end
         else
             # if there are save games available
             save_games = []
@@ -255,6 +302,7 @@ loop do
             greeting = "Choose a Save Game:\n"
             # choices = [item_action1, item_action2, item_action3]
             answer = title_prompt.select(greeting, save_games)
+            system("clear")
     
             if answer == save_games[save_games.length - 1]
                 puts "Please input name for new save"
@@ -262,12 +310,19 @@ loop do
                 # alphanumeric check loop
                 loop do
                     input = gets.chomp
+                    system("clear")
                     begin
-                        input.each_char {|char| alphaNum_err(check_if_alnum(char))}
+                        # check if name uses alpha char
+                        input.each_char {|char| alpha_err(check_if_alpha(char))}
+
+                        # check if name already taken
+                        save.each {|save_game| name_taken_err if save_game["name"] == input}
+                        # else
                         final_input = input
                         break
                     rescue => e 
                         puts e.message
+                        puts "Please input name for new save"
                     end
                 end
     
@@ -323,9 +378,42 @@ loop do
                 end
             end
         end
-        
-    # help
     elsif answer == choices[1]
+        loop do
+            puts "Warning, this menu is for deleting save games, choose the last option to return to Title Screen.\n\n"
+            save = generate_savegames
+            save_games = []
+            save.each {|save| save_games << save["name"]}
+            save_games << "Back to Title Screen"
+
+            title_prompt = TTY::Prompt.new(active_color: :red)
+            greeting = "Delete a Save Game:\n"
+            answer = title_prompt.select(greeting, save_games)
+            system("clear")
+
+            if answer != save_games[save_games.length - 1]
+                current_save = save.find {|save_game| save_game["name"] == answer}
+    
+                # double check!
+                title_prompt = TTY::Prompt.new(active_color: :red)
+                greeting = "Are you sure?\n"
+                choices = ["Yes", "No"]
+                answer = title_prompt.select(greeting, choices)
+                system("clear")
+
+                if answer == "Yes"
+                    save.delete(current_save)
+                    File.write("save.json", JSON.generate(save))
+                    puts "Save Deleted!\n\n"
+                end
+            else
+                system("clear")
+                break
+            end
+        end
+
+    # help
+    elsif answer == choices[2]
         puts "Help Screen\n\n"
         item_action1 = "Back to Title Screen"
     
@@ -336,7 +424,7 @@ loop do
         system("clear")
     
     # exit
-    elsif answer == choices[2]
+    elsif answer == choices[3]
         exit
     end
 end

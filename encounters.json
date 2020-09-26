@@ -13,7 +13,7 @@
             "item": "cross",
             "description": "Your tear the cross from your neck, brandishing it like a weapon. The vampire laughs mockingly, and in the blink of eye is biting into your neck. You thrust the cross into his forehead and he screams!\n After a sharp crack, the vampire is gone, leaving only a key. You feel drained, but alive.",
             "benefit": {"health": 0, "sanity": 0, "items": ["key"]},
-            "loss": {"health": 20, "sanity": 10, "items": ["lamp"]}
+            "loss": {"health": 30, "sanity": 10, "items": []}
         },
         "failure_condition": {
             "description": "You struggle to find something useful, to no avail. In the blink of an eye the vampire is biting into your neck, and all goes black",
@@ -28,14 +28,14 @@
         "success_condition": {
             "item": "revolver",
             "description": "You fire your revolver at the thugs centre of mass, dropping him. You feel energized, but sickened.\n You relieve the man of his knife, and find a curious book in his waistcoat",
-            "benefit": {"health": 10, "sanity": 0, "items": ["knife", "book"]},
+            "benefit": {"health": 10, "sanity": 0, "items": ["knife", "book", "crossbow", "spoon"]},
             "loss": {"health": 0, "sanity": 10, "items": []}
         },
         "neutral_condition": {
             "item": "knife",
             "description": "You pull out your own knife, hoping to best the thug in a duel.\n Alas, you are no knife fighter. While you survived the fight you now resemble a pincushion\n You are bleeding, but alive. \n You relieve the man of his knife, and find a curious book in his waistcoat",
             "benefit": {"health": 0, "sanity": 0, "items": ["knife", "book"]},
-            "loss": {"health": 20, "sanity": 20, "items": ["lamp"]}
+            "loss": {"health": 20, "sanity": 20, "items": []}
         },
         "failure_condition": {
             "description": "The request for valuables was a ruse! He's a madman! No matter what you do, the thug decends upon you, and everything goes black.\n When you awaken your breathe is wheezy, like you body is covered in holes. Your mind is hazy. You are on deaths door",
@@ -50,7 +50,7 @@
         "success_condition": {
             "item": "knife",
             "description": "You successfully cut the vines before you asphyxiate. You feel energized",
-            "benefit": {"health": 10, "sanity": 10, "items": []},
+            "benefit": {"health": 10, "sanity": 10, "items": ["vines"]},
             "loss": {"health": 0, "sanity": 0, "items": []}
         },
         "neutral_condition": {
@@ -63,6 +63,28 @@
             "description": "Whatever you try to do, it doesn't work, and you quickly lose consciousness. When you awaken you can barely breathe, your mind is hazy. You are on deaths door",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 50, "sanity": 50, "items": []}
+        }
+    },
+    {
+        "id": "shopkeeper",
+        "base_description": "A curious man stands behind a stall, various trinkets and wares adorn the counter.\n The mysterious shopkeeper wishes to make a trade, he says he particularly likes plants.\n You dare not insult him with the wrong item",
+        "died_description": "A man stands behind a stall, you seem preternaturally unnerved by him for some reason.\n The mysterious shopkeeper wishes to make a trade, he says he particularly likes plants.\n You dare not insult him with the wrong item",
+        "success_condition": {
+            "item": "vines",
+            "description": "The man says these cuttings will do quite nicely. In return he gives you a lamp, to 'Light the Way'. You feel confident",
+            "benefit": {"health": 10, "sanity": 10, "items": ["lamp"]},
+            "loss": {"health": 0, "sanity": 0, "items": ["vines"]}
+        },
+        "neutral_condition": {
+            "item": "pocketwatch",
+            "description": "'Theres no telling when one may need to tell the time'\n The man takes the trinket and gives you a lamp in return.\n You're not sure if that was the right choice.\n",
+            "benefit": {"health": 0, "sanity": 0, "items": ["lamp"]},
+            "loss": {"health": 20, "sanity": 20, "items": ["pocketwatch"]}
+        },
+        "failure_condition": {
+            "description": "The man refuses your offer.\n In return for wasting his time he shoots you with a crossbow bolt and vanishes.\n Luckily it's only in the shoulder, still hurts though.",
+            "benefit": {"health": 0, "sanity": 0, "items": ["bolt"]},
+            "loss": {"health": 20, "sanity": 10, "items": []}
         }
     }
 ]
