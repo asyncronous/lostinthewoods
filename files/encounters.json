@@ -130,5 +130,49 @@
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 0, "sanity": 40, "items": []}
         }
+    },
+    {
+        "id": "devil",
+        "base_description": "A tall man stands up from scratching at the dirt and waves you over.\nCautiously, you approach. It appears he's drawn a cross on the ground\n'Have you run out of Time yet, or perhaps you have an offering?' he says.\n\n",
+        "died_description": "A tall man stands up from scratching at the dirt. His hands seems to flicker into claws and back again to human hands.\nYou feel hollow as you approach him.\n'Have you run out of Time yet, or perhaps you have an offering?' he says with a grin.\n\n",
+        "success_condition": {
+            "item": "pocketwatch",
+            "description": "You take out the pocket-watch and hand it to the man.\n'Wonderful, wonderful. You may survive after all' The man bows, turns, and walks away into the shadows",
+            "benefit": {"health": 50, "sanity": 20, "items": []},
+            "loss": {"health": 0, "sanity": 0, "items": ["pocketwatch"]}
+        },
+        "neutral_condition": {
+            "item": "bolt",
+            "description": "You take the bolt and hand it to the man, who takes it eagerly. He gently brushes his fingers over the dried blood covering it. 'This shall do'",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 0, "sanity": 20, "items": ["bolt"]}
+        },
+        "failure_condition": {
+            "description": "Having nothing to offer of any interest to the man, he scoffs, turns, and walks away into the shadows.",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 0, "sanity": 40, "items": []}
+        }
+    },
+    {
+        "id": "sacrifice",
+        "base_description": "A group of masked revellers are dancing and chanting around a bonfire, it seems like their trying to summon something.\nYou have a few seconds to do something before someone sees you.\n\n",
+        "died_description": "A group of masked demons scream and dance around a bonfire, they seem to summoning something... big",
+        "success_condition": {
+            "item": "mask",
+            "description": "You quickly take out the mask and put it on your face, joining the revellers in their chanting.\nBefore long a great bellow bursts from the bonfire, and a great demon of flame rises out.\nBefore you can do anything, the demon quickly snatches up every masked reveller and eats them, including you!\nEverything is fire!",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 80, "sanity": 80, "items": ["mask"]}
+        },
+        "neutral_condition": {
+            "item": "cross",
+            "description": "You quickly duck behind a tree and grasp the cross in the hopes it will protect you from whatever this is.\n As the chanting reaches its crescendo, a great bellow bursts from the bonfire, and a great demon of flame rises out.\nBefore you can do anything, the demon quickly snatches up every masked reveller and eats them, burning them alive!\nFor some reason the demon doesn't sense you, and after taking care of the revellers, waddles away,\nsetting fire to everything in its path.",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 0, "sanity": 30, "items": []}
+        },
+        "failure_condition": {
+            "description": "Having nothing useful, and realising you need to be as far away from here as possible, you leg it",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 0, "sanity": 45, "items": []}
+        }
     }
 ]

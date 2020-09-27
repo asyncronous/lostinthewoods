@@ -54,10 +54,12 @@ def main_game_loop(master_save, curr_save)
     
             sleep 2
             
+            # list all items in menu
             item_list = hero.inventory
             item_prompt = TTY::Prompt.new(active_color: :red)
             question = "You have the following items available, what do you choose?:\n"
             item = item_prompt.select(question, item_list)
+
             system("clear")
             puts a.to_ascii_art(color: true, width: 80)
             
@@ -67,8 +69,7 @@ def main_game_loop(master_save, curr_save)
             condition = compute_result(item, rand_enc)
 
             # change health and sanity
-            hero.health = hero.health + health_change(rand_enc, condition)
-            hero.sanity = hero.sanity + sanity_change(rand_enc, condition)
+            hero.adjust_stats(health_change(rand_enc, condition), sanity_change(rand_enc, condition))
     
             #remove items
             item_to_remove = rand_enc[condition]["loss"]["items"]

@@ -8,4 +8,21 @@ class Hero
         @inventory = inventory
         @deaths = deaths
     end
+
+    def adjust_stats(h_change, s_change)
+        @health += h_change
+        @sanity += s_change
+
+        if @health > 100
+            @health = 100
+        elsif @health < 0
+            @health = 0
+        end
+
+        if @sanity > 100
+            @sanity = 100
+        elsif @sanity < 0
+            @sanity = 0
+        end
+    end
 end
