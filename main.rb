@@ -78,7 +78,7 @@ loop do
 
             if answer == "Yes"
                 puts "Currently playing as #{final_input}"
-                sleep 1
+                sleep 0.75
                 system("clear")
                 
                 won = main_game_loop(save, current_save)
@@ -147,7 +147,7 @@ loop do
 
                 if answer == "Yes"
                     puts "Currently playing as #{final_input}"
-                    sleep 1
+                    sleep 0.75
                     system("clear")
 
                     won = main_game_loop(save, current_save)

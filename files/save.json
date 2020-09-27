@@ -1,1 +1,1 @@
-[{"name":"Ben","health":100,"sanity":100,"inventory":["revolver","cross","trinket","key"],"deaths":["thug","flowers"],"won":false},{"name":"George","health":100,"sanity":100,"inventory":["revolver","cross","trinket"],"deaths":[],"won":false}]
+[{"name":"Ben","health":100,"sanity":100,"inventory":["revolver","cross","book","pocketwatch","vines","key"],"deaths":[]}]

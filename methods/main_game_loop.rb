@@ -27,7 +27,7 @@ def main_game_loop(master_save, curr_save)
 
     prompt = TTY::Prompt.new(active_color: :red)
 
-    # begin loop
+    # wake up loop
     loop do
         system("clear")
         a = AsciiArt.new("./files/scary-woods.jpg")
@@ -35,17 +35,20 @@ def main_game_loop(master_save, curr_save)
 
         puts "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n"
         
-        sleep 1.5
+        answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue"])
 
         rand_area = ""
         rand_enc = ""
+
+        # random area/encounter loop
         loop do
+            system("clear")
+            puts a.to_ascii_art(color: true, width: 80)
+
             # choose random area from area descriptions list, make sure you dont get same in a row
             rand_area = choose_random_area(rand_area, area_descriptions)
-
             # choose random encounter from encounter list, make sure you dont get same in a row
             rand_enc = choose_random_encounter(rand_enc, encounters)
-            
             # if hero died to this area, display alt description
             puts hero_died(hero, rand_area)
             
@@ -54,10 +57,11 @@ def main_game_loop(master_save, curr_save)
             # if hero died to this enc, display alt description
             puts hero_died_enc(hero, rand_enc)
     
-            sleep 2
+            sleep 1.5
             
             # list all items in menu
-            item_list = hero.inventory
+            item_list = []
+            hero.inventory.each {|i| item_list << i}
             item = prompt.select("You have the following items available, what do you choose?:\n", item_list)
 
             system("clear")
@@ -67,59 +71,20 @@ def main_game_loop(master_save, curr_save)
             
             # figure out which condition has been met, puts description to screen
             condition = compute_result(item, rand_enc)
-
             # change health and sanity
             hero.adjust_stats(health_change(rand_enc, condition), sanity_change(rand_enc, condition))
     
             #remove items
-            item_to_remove = rand_enc[condition]["loss"]["items"]
-            item_to_remove.each {|item| hero.inventory.delete(item)}
-    
+            rand_enc[condition]["loss"]["items"].each {|item| hero.inventory.delete(item)}
             #add items / check for duplicates and swap item if inv full
-            item_to_add = rand_enc[condition]["benefit"]["items"]
+            hero.item_add_swap(rand_enc[condition]["benefit"]["items"])
 
-            item_to_add.each do |item| 
-                if hero.inventory.include?(item) == false
-                    if hero.inventory.length >= 6
-                        # item_list = []
-                        # hero.inventory.each {|i| item_list << i}
-                        item_list = hero.inventory
-                        item_list << "Leave item"
-                        item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list)
+            #if dead, add encounter that killed player, and area they died in, and if sanity is 
+            dead = hero.dead_checker(rand_area["id"], rand_enc["id"])
 
-                        if item_to_swap != "Leave item"
-                            answer = prompt.select("Are you sure?\n", ["Yes", "No"])
-                            system("clear")
-                            puts a.to_ascii_art(color: true, width: 80)
-    
-                            if answer == "Yes"
-                                hero.inventory.delete(item_to_swap)
-                                hero.inventory << item
-                            end
-                        end
-                    else
-                        hero.inventory << item
-                    end
-                end
-            end
-
+            #incr if sane
             if hero.sanity > 0
                 num_areas += 1
-            end
-
-            status = "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory}\n"
-    
-            #dead
-            dead = false
-            if(hero.health <= 0)
-                # add death to deaths
-                hero.deaths << rand_enc["id"]
-                hero.deaths << rand_area["id"]
-                dead = true
-                #insane
-                if(hero.sanity <= 0)
-                    hero.inventory = ["revolver", "cross", "trinket"]
-                end
             end
     
             #update save file 
@@ -136,7 +101,6 @@ def main_game_loop(master_save, curr_save)
     
             # if won the game
             if dead == false && num_areas > 7
-                
                 answer = prompt.select("You have escaped the forest!\n", ["Back to Title Screen"])
                 system("clear")
                 return "victory!"
@@ -158,7 +122,7 @@ def main_game_loop(master_save, curr_save)
                 end
             end
 
-            answer = prompt.select(status, ["Continue"])
+            answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue"])
             system("clear")
         end
     end

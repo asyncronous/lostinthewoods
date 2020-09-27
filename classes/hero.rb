@@ -1,3 +1,5 @@
+require 'tty-prompt'
+
 class Hero
     attr_accessor :name, :health, :sanity, :inventory, :deaths
 
@@ -23,6 +25,55 @@ class Hero
             @sanity = 100
         elsif @sanity < 0
             @sanity = 0
+        end
+    end
+
+    def item_add_swap(items_add)
+        prompt = TTY::Prompt.new(active_color: :red)
+        a = AsciiArt.new("./files/scary-woods.jpg")
+        
+        items_add.each do |item| 
+            if @inventory.include?(item) == false
+                if @inventory.length >= 6
+                    item_list = []
+                    @inventory.each {|i| item_list << i}
+                    item_list << "Leave item"
+
+                    item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list)
+                    system("clear")
+                    puts a.to_ascii_art(color: true, width: 80)
+
+                    if item_to_swap != "Leave item"
+                        
+                        answer = prompt.select("Are you sure?\n", ["Yes", "No"])
+                        system("clear")
+                        puts a.to_ascii_art(color: true, width: 80)
+
+                        if answer == "Yes"
+                            @inventory.delete(item_to_swap)
+                            @inventory << item
+                        end
+                    end
+                else
+                    @inventory << item
+                end
+            end
+        end
+
+    end
+
+    def dead_checker(enc, area)
+        dead = false
+        if @health == 0
+            # add death to deaths
+            @deaths << enc
+            @deaths << area
+            dead = true
+            #insane
+            if @sanity == 0
+                @inventory = ["revolver", "cross", "trinket"]
+            end
+            return dead
         end
     end
 end
