@@ -1,17 +1,17 @@
 [
     {
         "id": "vampire",
-        "base_description": "A vampire materializes in front of you! He looks hungry...",
-        "died_description": "You startle backwards as a vampire appears in front of you! You can already feel your blood rushing...",
+        "base_description": "A vampire materializes in front of you! He looks hungry...\n\n",
+        "died_description": "You startle backwards as a vampire appears in front of you! You can already feel your blood rushing...\n\n",
         "success_condition": {
             "item": "book",
-            "description": "You tear the book from your waistcoat as the vampires grin widens, revealing his sharp incisors\n You begin reciting esoteric nonsense, and the vampire screams! After a sharp crack, the vampire is gone, leaving only a key. You feel some of your sanity return",
+            "description": "You tear the book from your waistcoat as the vampires grin widens, revealing his sharp incisors\nYou begin reciting esoteric nonsense, and the vampire screams!\nAfter a sharp crack, the vampire is gone, leaving only a key. You feel some of your sanity return",
             "benefit": {"health": 0, "sanity": 10, "items": ["key"]},
             "loss": {"health": 0, "sanity": 0, "items": []}
         },
         "neutral_condition": {
             "item": "cross",
-            "description": "Your tear the cross from your neck, brandishing it like a weapon. The vampire laughs, and in the blink of eye is biting into your neck. You thrust the cross into his forehead and he screams!\n After a sharp crack, the vampire is gone, leaving only a key. You feel drained, but alive.",
+            "description": "You tear the cross from your neck, brandishing it like a weapon. The vampire laughs, and in the blink of eye is biting into your neck.\nYou thrust the cross into his forehead and he screams!\nAfter a sharp crack, the vampire is gone, leaving only a key. You feel drained, but alive.",
             "benefit": {"health": 0, "sanity": 0, "items": ["key"]},
             "loss": {"health": 30, "sanity": 10, "items": []}
         },
@@ -23,30 +23,30 @@
     },
     {
         "id": "thug",
-        "base_description": "A thug appears from beside you, how did he get there?! He flashes a knife at you and demands all your valuables",
-        "died_description": "A thug appears from beside you, how did he get there?! He flashes a knife and.. looks confused.. then shakes his head and demands all your valuables",
+        "base_description": "A thug appears from the shadows, how did he get there?! He flashes a knife at you and demands all your valuables\n\n",
+        "died_description": "A thug appears from the shadows, how did he get there?! He flashes a knife and.. looks confused.. then shakes his head and demands all your valuables\n\n",
         "success_condition": {
             "item": "revolver",
-            "description": "You fire your revolver at the thugs centre of mass, dropping him. You feel energized, but sickened.\n You relieve the man of his knife, and find a curious book in his waistcoat",
+            "description": "You fire your revolver at the thugs centre of mass, dropping him. You feel energized, but sickened.\nYou relieve the man of his knife, and find a curious book in his waistcoat",
             "benefit": {"health": 10, "sanity": 0, "items": ["knife", "book"]},
             "loss": {"health": 0, "sanity": 10, "items": []}
         },
         "neutral_condition": {
             "item": "knife",
-            "description": "You pull out your own knife, hoping to best the thug in a duel.\n Alas, you are no knife fighter. While you survived the fight you now resemble a pincushion\n You are bleeding, but alive. \n You relieve the man of his knife, and find a curious book in his waistcoat",
+            "description": "You pull out your own knife, hoping to best the thug in a duel.\nAlas, you are no knife fighter. While you survived the fight you now resemble a pincushion\nYou are bleeding, but alive. \nYou relieve the man of his knife, and find a curious book in his waistcoat",
             "benefit": {"health": 0, "sanity": 0, "items": ["knife", "book"]},
             "loss": {"health": 20, "sanity": 20, "items": []}
         },
         "failure_condition": {
-            "description": "The request for valuables was a ruse! He's a madman! No matter what you do, the thug decends upon you, and everything goes black.\n When you awaken your breathe is wheezy, like you body is covered in holes. Your mind is hazy. You are on deaths door",
+            "description": "The request for valuables was a ruse! He's a madman! No matter what you do, the thug decends upon you, and everything goes black.\nWhen you awaken your breathe is wheezy, like you body is covered in holes. Your mind is hazy. You are on deaths door",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 80, "sanity": 80, "items": []}
         }
     },
     {
         "id": "vines",
-        "base_description": "Vines snake up from the ground and wrap around you, slowly constricting",
-        "died_description": "Vines snake up from the ground and wrap around you, you start to thrash and panic with fear",
+        "base_description": "Vines snake up from the ground and wrap around you, slowly constricting\n\n",
+        "died_description": "Vines snake up from the ground and wrap around you, you start to thrash and panic with fear\n\n",
         "success_condition": {
             "item": "knife",
             "description": "You successfully cut the vines before you asphyxiate. You feel energized",
@@ -55,7 +55,7 @@
         },
         "neutral_condition": {
             "item": "lamp",
-            "description": "You smash the lamp against the vines and yourself, setting you both alight! As you try to put out the flames the vines shrink back beneath into the dirt.\n You are moderately burned and traumatised",
+            "description": "You smash the lamp against the vines and yourself, setting you both alight!\nAs you try to put out the flames the vines shrink back beneath into the dirt.\nYou are moderately burned and traumatised",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 50, "sanity": 30, "items": ["lamp"]}
         },
@@ -67,8 +67,8 @@
     },
     {
         "id": "shopkeeper",
-        "base_description": "A curious man stands behind a stall, various trinkets and wares adorn the counter.\n The mysterious shopkeeper wishes to make a trade, he says he particularly likes plants.\n You dare not insult him with the wrong item",
-        "died_description": "A man stands behind a stall, you seem preternaturally unnerved by him for some reason.\n The mysterious shopkeeper wishes to make a trade, he says he particularly likes plants.\n You dare not insult him with the wrong item",
+        "base_description": "A curious man stands behind a stall, various trinkets and wares adorn the counter.\nThe mysterious shopkeeper wishes to make a trade, he says he particularly likes plants.\nYou dare not insult him with the wrong item\n\n",
+        "died_description": "A man stands behind a stall, you seem preternaturally unnerved by him for some reason.\nThe mysterious shopkeeper wishes to make a trade, he says he particularly likes plants.\nYou dare not insult him with the wrong item\n\n",
         "success_condition": {
             "item": "vines",
             "description": "The man says these cuttings will do quite nicely. In return he gives you a lamp, to 'Light the Way'. You feel confident",
@@ -77,20 +77,20 @@
         },
         "neutral_condition": {
             "item": "trinket",
-            "description": "'Theres no telling when one may need to tell the time'\n The man takes the trinket and gives you a pocketwatch in return.\n You feel uneasy.\n",
+            "description": "'Theres no telling when one may need to tell the time'\nThe man takes the trinket and gives you a pocketwatch in return.\nYou feel uneasy.\n",
             "benefit": {"health": 0, "sanity": 0, "items": ["pocketwatch"]},
             "loss": {"health": 0, "sanity": 20, "items": ["trinket"]}
         },
         "failure_condition": {
-            "description": "The man refuses your offer.\n In return for wasting his time he shoots you with a crossbow bolt and vanishes.\n Luckily it's only in the shoulder, still hurts though.",
+            "description": "The man refuses your offer.\nIn return for wasting his time he shoots you with a crossbow bolt and vanishes.\nLuckily it's only in the shoulder, still hurts though.",
             "benefit": {"health": 0, "sanity": 0, "items": ["bolt"]},
             "loss": {"health": 20, "sanity": 10, "items": []}
         }
     },
     {
         "id": "fog",
-        "base_description": "A fog appears in the distance, moving alarmingly fast in your direction!",
-        "died_description": "A deathly black fog appears in the distance, coming straight for you. You already find it hard to breathe",
+        "base_description": "A fog begins to form, moving alarmingly fast in your direction!\n\n",
+        "died_description": "A deathly black fog begins to form, and its coming straight for you. You already find it hard to breathe\n\n",
         "success_condition": {
             "item": "lamp",
             "description": "You shine the lamp directly into the fog, as it dissipates you could have sworn you heard a high-pitched squeel",
@@ -99,14 +99,36 @@
         },
         "neutral_condition": {
             "item": "book",
-            "description": "You take out the book and fumble for a page about death fogs.\n You finish reading just as the fog surrounds you and fills your lungs!\n As it dissipates you could have sworn you heard a high-pitched squeel ",
+            "description": "You take out the book and fumble for a page about death fogs.\nYou finish reading just as the fog surrounds you and fills your lungs!\nAs it dissipates you could have sworn you heard a high-pitched squeel ",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 0, "sanity": 20, "items": []}
         },
         "failure_condition": {
-            "description": "You fumble around for anything that might be of use, but before long you can't see through the fog, and you begin to suffocate. When you awaken, you find it hard to breathe",
+            "description": "You fumble around for anything that might be of use, but before long you can't see through the fog, and you begin to suffocate.\nWhen you awaken, you find it hard to breathe",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 40, "sanity": 10, "items": []}
+        }
+    },
+    {
+        "id": "chest",
+        "base_description": "In front of you sits a sturdy wooden chest. It appears to be... eager to see you.\n\n",
+        "died_description": "In front of you sits what looks like a chest... Seems harmless enough, but lets not shoot at it this time.\n\n",
+        "success_condition": {
+            "item": "key",
+            "description": "You tentatively insert the key into the lock and twist... The lid of the chest creaks open of its own accord. Inside you find a creepy mask.",
+            "benefit": {"health": 10, "sanity": 0, "items": ["mask"]},
+            "loss": {"health": 0, "sanity": 10, "items": []}
+        },
+        "neutral_condition": {
+            "item": "revolver",
+            "description": "You fire the revolver into the locking mechanism on the chest.\nThe chest immediately explodes, obliterating it and its contents, and sending you flying backwards.\nWhen you come to, you check what remains of the chest, to no avail.\n Your revolver has been destroyed",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 60, "sanity": 20, "items": ["revolver"]}
+        },
+        "failure_condition": {
+            "description": "No matter what you do you can't seem to get the blasted thing open.\nYou kick the chest in a rage, causing it to growl.\nYou slowly back away...",
+            "benefit": {"health": 0, "sanity": 0, "items": []},
+            "loss": {"health": 0, "sanity": 40, "items": []}
         }
     }
 ]

@@ -1,5 +1,7 @@
 # gems and libraries
-require 'highline/import'
+# require 'highline/import'
+require 'asciiart'
+require 'rainbow'
 require 'tty-prompt'
 require 'json'
 
@@ -25,9 +27,13 @@ def main_game_loop(master_save, curr_save)
 
     # begin loop
     loop do
+        system("clear")
+        a = AsciiArt.new("./files/scary-woods.jpg")
+        puts a.to_ascii_art(color: true, width: 80)
+
         puts "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n"
         
-        sleep 2
+        sleep 1.5
 
         rand_area = ""
         rand_enc = ""
@@ -53,8 +59,9 @@ def main_game_loop(master_save, curr_save)
             question = "You have the following items available, what do you choose?:\n"
             item = item_prompt.select(question, item_list)
             system("clear")
+            puts a.to_ascii_art(color: true, width: 80)
             
-            puts "You try to use your #{item}!\n\n"
+            puts "You try to use the #{item}!\n\n"
             
             # figure out which condition has been met, puts description to screen
             condition = compute_result(item, rand_enc)
@@ -87,6 +94,7 @@ def main_game_loop(master_save, curr_save)
                             choices = ["Yes", "No"]
                             answer = title_prompt.select(greeting, choices)
                             system("clear")
+                            puts a.to_ascii_art(color: true, width: 80)
     
                             if answer == "Yes"
                                 hero.inventory.delete(item_to_swap)
@@ -138,10 +146,12 @@ def main_game_loop(master_save, curr_save)
                 answer = prompt.select(status, choices)
 
                 system("clear")
+                # puts a.to_ascii_art(color: true, width: 80)
                 return "victory!"
 
             # if dead
             elsif dead == true
+                
                 num_areas = 0
                 prompt = TTY::Prompt.new(active_color: :red)
                 status = "You are Dead"
@@ -150,11 +160,13 @@ def main_game_loop(master_save, curr_save)
                 
                 if answer == "Wake Up"
                     system("clear")
+                    puts a.to_ascii_art(color: true, width: 80)
                     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
                     break
                 
                 elsif answer == "Back to Title Screen"
                     system("clear")
+                    puts a.to_ascii_art(color: true, width: 80)
                     return
                 end
             end
@@ -163,7 +175,7 @@ def main_game_loop(master_save, curr_save)
             choices = "Continue"
             answer = prompt.select(status, choices)
             system("clear")
-            # gets
+            puts a.to_ascii_art(color: true, width: 80)
         end
     end
 end

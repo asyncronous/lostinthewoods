@@ -1,7 +1,9 @@
 # gems and libraries
-require 'highline/import'
-require 'tty-prompt'
+# require 'highline/import'
 require 'json'
+require 'tty-prompt'
+require 'asciiart'
+require 'rainbow'
 
 # error classes and methods
 require_relative 'classes/duplicate_name'
@@ -17,7 +19,11 @@ system("clear")
 
 #main title screen loop
 loop do
-    puts "Lost in the Woods"
+    system("clear")
+    a = AsciiArt.new("./files/title.png")
+    # => #<AsciiArt:0x00000100878678 @file=#<File:/Users/sschor/Desktop/uncle_larry.jpg>>
+    puts Rainbow("#{a.to_ascii_art(width: 120)}").red
+                                                                                              
     # puts Lost In The Woods in big ascii letters to the screen
     # also put trees and owls and stuff
     
@@ -33,6 +39,7 @@ loop do
     answer = title_prompt.select(greeting, choices)
     
     system("clear")
+    puts Rainbow("#{a.to_ascii_art(width: 120)}").red
     # start
     if answer == choices[0]
         if save == []
@@ -44,6 +51,7 @@ loop do
             loop do
                 input = gets.chomp
                 system("clear")
+                puts Rainbow("#{a.to_ascii_art(width: 120)}").red
                 begin
                     input.each_char {|char| alpha_err(check_if_alpha(char))}
                     empty_err(input)
@@ -76,11 +84,13 @@ loop do
             choices = ["Yes", "Back to Title Screen"]
             answer = title_prompt.select(wake_up, choices)
             system("clear")
+            puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
             if answer == choices[0]
                 puts "Currently playing as #{final_input}"
                 sleep 1
                 system("clear")
+                
 
                 won = main_game_loop(save, current_save)
                     
@@ -100,6 +110,7 @@ loop do
             # choices = [item_action1, item_action2, item_action3]
             answer = title_prompt.select(greeting, save_games)
             system("clear")
+            puts Rainbow("#{a.to_ascii_art(width: 120)}").red
     
             if answer == save_games[save_games.length - 1]
                 puts "Please input name for new save"
@@ -108,6 +119,7 @@ loop do
                 loop do
                     input = gets.chomp
                     system("clear")
+                    puts Rainbow("#{a.to_ascii_art(width: 120)}").red
                     begin
                         # check if name uses alpha char
                         input.each_char {|char| alpha_err(check_if_alpha(char))}
@@ -149,6 +161,7 @@ loop do
                 choices = ["Yes", "Back to Title Screen"]
                 answer = title_prompt.select(wake_up, choices)
                 system("clear")
+                puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
                 if answer == choices[0]
                     puts "Currently playing as #{final_input}"
@@ -172,6 +185,7 @@ loop do
                 choices = ["Yes", "Back to Title Screen"]
                 selection = title_prompt.select(wake_up, choices)
                 system("clear")
+                puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
                 if selection == choices[0]
                     puts "Currently playing as #{answer}"
@@ -199,6 +213,7 @@ loop do
             greeting = "Delete a Save Game:\n"
             answer = title_prompt.select(greeting, save_games)
             system("clear")
+            puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
             if answer != save_games[save_games.length - 1]
                 current_save = save.find {|save_game| save_game["name"] == answer}
@@ -209,6 +224,7 @@ loop do
                 choices = ["Yes", "No"]
                 answer = title_prompt.select(greeting, choices)
                 system("clear")
+                puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
                 if answer == "Yes"
                     save.delete(current_save)
@@ -234,6 +250,7 @@ loop do
     
     # exit
     elsif answer == choices[3]
+        system("clear")
         exit
     end
 end
