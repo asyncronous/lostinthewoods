@@ -16,32 +16,26 @@ require_relative 'methods/choose_random'
 require_relative 'methods/encounter_results'
 
 system("clear")
+title_prompt = TTY::Prompt.new(active_color: :red)
 
 #main title screen loop
 loop do
     system("clear")
     a = AsciiArt.new("./files/title.png")
-    # => #<AsciiArt:0x00000100878678 @file=#<File:/Users/sschor/Desktop/uncle_larry.jpg>>
     puts Rainbow("#{a.to_ascii_art(width: 120)}").red
-                                                                                              
-    # puts Lost In The Woods in big ascii letters to the screen
-    # also put trees and owls and stuff
-    
+                                                                                            
     # initialise save variables
     save = []
     save = JSON.parse(File.read("./files/save.json", symbolize_names: true))
     current_save = nil
     
     # title screen menu
-    title_prompt = TTY::Prompt.new(active_color: :red)
-    greeting = "\n"
-    choices = ["Start", "Save-Games", "Help", "Exit"]
-    answer = title_prompt.select(greeting, choices)
+    answer = title_prompt.select("\n", ["Start", "Save-Games", "Help", "Exit"])
     
     system("clear")
     puts Rainbow("#{a.to_ascii_art(width: 120)}").red
     # start
-    if answer == choices[0]
+    if answer == "Start"
         if save == []
             # if there were no saves found
             puts "No Saves Found!\n\n"
@@ -69,8 +63,7 @@ loop do
                 "health" => 100,
                 "sanity" => 100,
                 "inventory" => ["revolver", "cross", "trinket"],
-                "deaths" => [],
-                "won" => false
+                "deaths" => []
             }
     
             puts "New save added!"
@@ -79,19 +72,15 @@ loop do
 
             current_save = save.find {|save_game| save_game["name"] == final_input}
 
-            title_prompt = TTY::Prompt.new(active_color: :red)
-            wake_up = "Wake Up?"
-            choices = ["Yes", "Back to Title Screen"]
-            answer = title_prompt.select(wake_up, choices)
+            answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
             system("clear")
             puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
-            if answer == choices[0]
+            if answer == "Yes"
                 puts "Currently playing as #{final_input}"
                 sleep 1
                 system("clear")
                 
-
                 won = main_game_loop(save, current_save)
                     
                 if won == "victory!"
@@ -105,10 +94,7 @@ loop do
             save.each {|save| save_games << save["name"]}
             save_games << "Create New Save"
     
-            title_prompt = TTY::Prompt.new(active_color: :red)
-            greeting = "Choose a Save Game:\n"
-            # choices = [item_action1, item_action2, item_action3]
-            answer = title_prompt.select(greeting, save_games)
+            answer = title_prompt.select("Choose a Save Game:\n", save_games)
             system("clear")
             puts Rainbow("#{a.to_ascii_art(width: 120)}").red
     
@@ -144,8 +130,7 @@ loop do
                     "health" => 100,
                     "sanity" => 100,
                     "inventory" => ["revolver", "cross", "trinket"],
-                    "deaths" => [],
-                    "won" => false
+                    "deaths" => []
                 }
     
                 puts "New save added!"
@@ -156,14 +141,11 @@ loop do
                 current_save = save.find {|save_game| save_game["name"] == final_input}
 
                 # wake up prompt
-                title_prompt = TTY::Prompt.new(active_color: :red)
-                wake_up = "Wake Up?"
-                choices = ["Yes", "Back to Title Screen"]
-                answer = title_prompt.select(wake_up, choices)
+                answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
                 system("clear")
                 puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
-                if answer == choices[0]
+                if answer == "Yes"
                     puts "Currently playing as #{final_input}"
                     sleep 1
                     system("clear")
@@ -180,14 +162,11 @@ loop do
                 current_save = save.find {|save_game| save_game["name"] == answer}
 
                 # wake up prompt
-                title_prompt = TTY::Prompt.new(active_color: :red)
-                wake_up = "Wake Up?"
-                choices = ["Yes", "Back to Title Screen"]
-                selection = title_prompt.select(wake_up, choices)
+                selection = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
                 system("clear")
                 puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
-                if selection == choices[0]
+                if selection == "Yes"
                     puts "Currently playing as #{answer}"
                     sleep 1
                     system("clear")
@@ -202,16 +181,14 @@ loop do
                 end
             end
         end
-    elsif answer == choices[1]
+    elsif answer == "Save-Games"
         loop do
             puts "Warning, this menu is for deleting save games, choose the last option to return to Title Screen.\n\n"
             save_games = []
             save.each {|save| save_games << save["name"]}
             save_games << "Back to Title Screen"
 
-            title_prompt = TTY::Prompt.new(active_color: :red)
-            greeting = "Delete a Save Game:\n"
-            answer = title_prompt.select(greeting, save_games)
+            answer = title_prompt.select("Delete a Save Game:\n", save_games)
             system("clear")
             puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
@@ -219,10 +196,7 @@ loop do
                 current_save = save.find {|save_game| save_game["name"] == answer}
     
                 # double check!
-                title_prompt = TTY::Prompt.new(active_color: :red)
-                greeting = "Are you sure?\n"
-                choices = ["Yes", "No"]
-                answer = title_prompt.select(greeting, choices)
+                answer = title_prompt.select("Are you sure?\n", ["Yes", "No"])
                 system("clear")
                 puts Rainbow("#{a.to_ascii_art(width: 120)}").red
 
@@ -238,18 +212,13 @@ loop do
         end
 
     # help
-    elsif answer == choices[2]
+    elsif answer == "Help"
         puts "Help Screen\n\n"
-        item_action1 = "Back to Title Screen"
-    
-        title_prompt = TTY::Prompt.new(active_color: :red)
-        help_display = "This is place holder text for the help screen,\n which will detail to the user how to interact with the game,\n what the goal is, etc\n\n"
-        choices = item_action1
-        answer = title_prompt.select(help_display, choices)
+        answer = title_prompt.select("This is place holder text for the help screen,\n which will detail to the user how to interact with the game,\n what the goal is, etc\n\n", "Back to Title Screen")
         system("clear")
     
     # exit
-    elsif answer == choices[3]
+    elsif answer == "Exit"
         system("clear")
         exit
     end

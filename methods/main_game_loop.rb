@@ -25,6 +25,8 @@ def main_game_loop(master_save, curr_save)
     # number of forest areas survived
     num_areas = 0
 
+    prompt = TTY::Prompt.new(active_color: :red)
+
     # begin loop
     loop do
         system("clear")
@@ -56,9 +58,7 @@ def main_game_loop(master_save, curr_save)
             
             # list all items in menu
             item_list = hero.inventory
-            item_prompt = TTY::Prompt.new(active_color: :red)
-            question = "You have the following items available, what do you choose?:\n"
-            item = item_prompt.select(question, item_list)
+            item = prompt.select("You have the following items available, what do you choose?:\n", item_list)
 
             system("clear")
             puts a.to_ascii_art(color: true, width: 80)
@@ -77,23 +77,18 @@ def main_game_loop(master_save, curr_save)
     
             #add items / check for duplicates and swap item if inv full
             item_to_add = rand_enc[condition]["benefit"]["items"]
+
             item_to_add.each do |item| 
                 if hero.inventory.include?(item) == false
                     if hero.inventory.length >= 6
-                        item_list = []
-                        hero.inventory.each {|i| item_list << i}
+                        # item_list = []
+                        # hero.inventory.each {|i| item_list << i}
+                        item_list = hero.inventory
                         item_list << "Leave item"
-                    
-                        item_prompt = TTY::Prompt.new(active_color: :red)
-                        question = "Your inventory is full, choose an item to swap for #{item}:\n"
-                        # choices = [item_action1, item_action2, item_action3]
-                        item_to_swap = item_prompt.select(question, item_list)
+                        item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list)
 
                         if item_to_swap != "Leave item"
-                            title_prompt = TTY::Prompt.new(active_color: :red)
-                            greeting = "Are you sure?\n"
-                            choices = ["Yes", "No"]
-                            answer = title_prompt.select(greeting, choices)
+                            answer = prompt.select("Are you sure?\n", ["Yes", "No"])
                             system("clear")
                             puts a.to_ascii_art(color: true, width: 80)
     
@@ -141,42 +136,30 @@ def main_game_loop(master_save, curr_save)
     
             # if won the game
             if dead == false && num_areas > 7
-                prompt = TTY::Prompt.new(active_color: :red)
-                status = "You have escaped the forest!\n"
-                choices = ["Back to Title Screen"]
-                answer = prompt.select(status, choices)
-
+                
+                answer = prompt.select("You have escaped the forest!\n", ["Back to Title Screen"])
                 system("clear")
-                # puts a.to_ascii_art(color: true, width: 80)
                 return "victory!"
 
             # if dead
             elsif dead == true
                 
                 num_areas = 0
-                prompt = TTY::Prompt.new(active_color: :red)
-                status = "You are Dead"
-                choices = ["Wake Up", "Back to Title Screen"]
-                answer = prompt.select(status, choices)
+                answer = prompt.select("You are Dead", ["Wake Up", "Back to Title Screen"])
                 
                 if answer == "Wake Up"
                     system("clear")
-                    puts a.to_ascii_art(color: true, width: 80)
                     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
                     break
                 
                 elsif answer == "Back to Title Screen"
                     system("clear")
-                    puts a.to_ascii_art(color: true, width: 80)
                     return
                 end
             end
 
-            prompt = TTY::Prompt.new(active_color: :red)
-            choices = "Continue"
-            answer = prompt.select(status, choices)
+            answer = prompt.select(status, ["Continue"])
             system("clear")
-            puts a.to_ascii_art(color: true, width: 80)
         end
     end
 end
