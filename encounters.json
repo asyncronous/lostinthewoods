@@ -28,7 +28,7 @@
         "success_condition": {
             "item": "revolver",
             "description": "You fire your revolver at the thugs centre of mass, dropping him. You feel energized, but sickened.\n You relieve the man of his knife, and find a curious book in his waistcoat",
-            "benefit": {"health": 10, "sanity": 0, "items": ["knife", "book", "crossbow", "spoon"]},
+            "benefit": {"health": 10, "sanity": 0, "items": ["knife", "book"]},
             "loss": {"health": 0, "sanity": 10, "items": []}
         },
         "neutral_condition": {

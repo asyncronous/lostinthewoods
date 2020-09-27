@@ -1,23 +1,19 @@
+# gems and libraries
 require 'highline/import'
 require 'tty-prompt'
 require 'json'
 
-class Hero
-    attr_accessor :name, :health, :sanity, :inventory, :deaths
+# player class
+require_relative 'classes/hero'
 
-    def initialize(name, inventory, deaths)
-        @name = name
-        @health = 100
-        @sanity = 100
-        @inventory = inventory
-        @deaths = deaths
-    end
-
-
-end
+# error classes and methods
+require_relative 'classes/duplicate_name'
+require_relative 'classes/empty_string'
+require_relative 'classes/not_alpha'
 
 def main_game_loop(master_save, curr_save)
     # generate hero from save data
+
     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
 
     # generate array of descriptions from files
@@ -31,7 +27,7 @@ def main_game_loop(master_save, curr_save)
 
     # begin loop
     loop do
-        puts "The howl of a wolf jolts me awake! I am... in a forest? I've never been here before... but it seems familiar all the same\n\n"
+        puts "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n"
         
         sleep 2
 
@@ -51,7 +47,7 @@ def main_game_loop(master_save, curr_save)
                 rand_area = area_descriptions[rand(0..(area_descriptions.length - 1))]
             end
 
-            # choose random encounter from encounter list
+            # choose random encounter from encounter list, make sure you dont get same in a row
             if rand_area != ""
                 last_enc = rand_enc
                 loop do
@@ -72,7 +68,7 @@ def main_game_loop(master_save, curr_save)
                 puts rand_area["base_description"]
             end
             
-            sleep 2
+            sleep 1.5
     
             if hero.deaths.include?(rand_enc["id"])
                 puts rand_enc["died_description"] + "\n\n"
@@ -165,7 +161,7 @@ def main_game_loop(master_save, curr_save)
                 dead = true
                 #insane
                 if(hero.sanity <= 0)
-                    hero.inventory = ["revolver"]
+                    hero.inventory = ["revolver", "cross", "trinket"]
                 end
             end
     
@@ -174,6 +170,7 @@ def main_game_loop(master_save, curr_save)
                 if save_game["name"] == hero.name
                     save_game["inventory"] = hero.inventory
                     save_game["deaths"] = hero.deaths
+                    curr_save = save_game
                 end
             end
     
@@ -193,6 +190,7 @@ def main_game_loop(master_save, curr_save)
 
             # if dead
             elsif dead == true
+                num_areas = 0
                 prompt = TTY::Prompt.new(active_color: :red)
                 status = "You are Dead"
                 choices = ["Wake Up", "Back to Title Screen"]
@@ -224,36 +222,8 @@ def generate_savegames
     return save_games
 end
 
-class NotAlpha < StandardError
-    def initialize(msg = "Invalid Input: Name must only use standard alpha characters a-z and A-Z")
-        super(msg)
-    end
-end
-
-class DuplicateName < StandardError
-    def initialize(msg = "Invalid Name: Another save game already has this name, choose another")
-        super(msg)
-    end
-end
-
-def check_if_alpha(input)
-    input =~ /[[:alpha:]]/
-end
-
-def alpha_err(result)
-    raise NotAlpha if result == nil
-end
-
-def name_taken_err
-    raise DuplicateName
-end
-
 system("clear")
 
-# initialise save variables
-save = []
-save = generate_savegames
-current_save = nil
 
 #main title screen loop
 loop do
@@ -261,6 +231,12 @@ loop do
     # puts Lost In The Woods in big ascii letters to the screen
     # also put trees and owls and stuff
     
+    # initialise save variables
+    save = []
+    save = generate_savegames
+    current_save = nil
+    
+    # title screen menu
     title_prompt = TTY::Prompt.new(active_color: :red)
     greeting = "\n"
     choices = ["Start", "Save-Games", "Help", "Exit"]
@@ -280,25 +256,29 @@ loop do
                 system("clear")
                 begin
                     input.each_char {|char| alpha_err(check_if_alpha(char))}
+                    empty_err(input)
                     final_input = input
                     break
                 rescue => e 
                     puts e.message
+                    puts "Please input name for new save"
                 end
             end
     
             # initialise new save
             new_save = {
-                name: final_input,
-                health: 100,
-                sanity: 100,
-                inventory: ["revolver", "cross", "trinket"],
-                deaths: []
+                "name" => final_input,
+                "health" => 100,
+                "sanity" => 100,
+                "inventory" => ["revolver", "cross", "trinket"],
+                "deaths" => []
             }
     
             puts "New save added!"
             save << new_save
             File.write("save.json", JSON.generate(save))
+
+            current_save = save.find {|save_game| save_game["name"] == final_input}
 
             title_prompt = TTY::Prompt.new(active_color: :red)
             wake_up = "Wake Up?"
@@ -317,6 +297,7 @@ loop do
         else
             # if there are save games available
             save_games = []
+            # save = generate_savegames
             save.each {|save| save_games << save["name"]}
             save_games << "Create New Save"
     
@@ -339,6 +320,9 @@ loop do
 
                         # check if name already taken
                         save.each {|save_game| name_taken_err if save_game["name"] == input}
+                        
+                        # check empty input
+                        empty_err(input)
                         # else
                         final_input = input
                         break
@@ -350,17 +334,17 @@ loop do
     
                 # initialise new save
                 new_save = {
-                    name: final_input,
-                    health: 100,
-                    sanity: 100,
-                    inventory: ["revolver"],
-                    deaths: []
+                    "name" => final_input,
+                    "health" => 100,
+                    "sanity" => 100,
+                    "inventory" => ["revolver", "cross", "trinket"],
+                    "deaths" => []
                 }
     
                 puts "New save added!"
                 save << new_save
                 File.write("save.json", JSON.generate(save))
-    
+
                 # set current save to save game
                 current_save = save.find {|save_game| save_game["name"] == final_input}
 
@@ -403,7 +387,7 @@ loop do
     elsif answer == choices[1]
         loop do
             puts "Warning, this menu is for deleting save games, choose the last option to return to Title Screen.\n\n"
-            save = generate_savegames
+            # save = generate_savegames
             save_games = []
             save.each {|save| save_games << save["name"]}
             save_games << "Back to Title Screen"
