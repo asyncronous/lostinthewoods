@@ -15,10 +15,10 @@ def main_game_loop(master_save, curr_save)
     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
 
     # generate array of descriptions from files
-    area_descriptions = JSON.parse(File.read("area_descriptions.json", symbolize_names: true))
+    area_descriptions = JSON.parse(File.read("./files/area_descriptions.json", symbolize_names: true))
 
     # generate array of encounters from files
-    encounters = JSON.parse(File.read("encounters.json", symbolize_names: true))
+    encounters = JSON.parse(File.read("./files/encounters.json", symbolize_names: true))
 
     # number of forest areas survived
     num_areas = 0
@@ -128,7 +128,7 @@ def main_game_loop(master_save, curr_save)
             end
 
             # save to file
-            File.write("save.json", JSON.generate(master_save))
+            File.write("./files/save.json", JSON.generate(master_save))
     
             # if won the game
             if dead == false && num_areas > 7
@@ -138,7 +138,7 @@ def main_game_loop(master_save, curr_save)
                 answer = prompt.select(status, choices)
 
                 system("clear")
-                return
+                return "victory!"
 
             # if dead
             elsif dead == true

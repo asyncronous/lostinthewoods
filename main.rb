@@ -23,7 +23,7 @@ loop do
     
     # initialise save variables
     save = []
-    save = JSON.parse(File.read("save.json", symbolize_names: true))
+    save = JSON.parse(File.read("./files/save.json", symbolize_names: true))
     current_save = nil
     
     # title screen menu
@@ -61,12 +61,13 @@ loop do
                 "health" => 100,
                 "sanity" => 100,
                 "inventory" => ["revolver", "cross", "trinket"],
-                "deaths" => []
+                "deaths" => [],
+                "won" => false
             }
     
             puts "New save added!"
             save << new_save
-            File.write("save.json", JSON.generate(save))
+            File.write("./files/save.json", JSON.generate(save))
 
             current_save = save.find {|save_game| save_game["name"] == final_input}
 
@@ -81,8 +82,12 @@ loop do
                 sleep 1
                 system("clear")
 
-                # begin main game loop
-                main_game_loop(save, current_save)
+                won = main_game_loop(save, current_save)
+                    
+                if won == "victory!"
+                    save.delete(current_save)
+                    File.write("./files/save.json", JSON.generate(save))
+                end
             end
         else
             # if there are save games available
@@ -127,12 +132,13 @@ loop do
                     "health" => 100,
                     "sanity" => 100,
                     "inventory" => ["revolver", "cross", "trinket"],
-                    "deaths" => []
+                    "deaths" => [],
+                    "won" => false
                 }
     
                 puts "New save added!"
                 save << new_save
-                File.write("save.json", JSON.generate(save))
+                File.write("./files/save.json", JSON.generate(save))
 
                 # set current save to save game
                 current_save = save.find {|save_game| save_game["name"] == final_input}
@@ -149,13 +155,17 @@ loop do
                     sleep 1
                     system("clear")
 
-                    # begin main game loop
-                    main_game_loop(save, current_save)
+                    won = main_game_loop(save, current_save)
+                    
+                    if won == "victory!"
+                        save.delete(current_save)
+                        File.write("./files/save.json", JSON.generate(save))
+                    end
                 end
             else
                 # set current save to save game
                 current_save = save.find {|save_game| save_game["name"] == answer}
-                
+
                 # wake up prompt
                 title_prompt = TTY::Prompt.new(active_color: :red)
                 wake_up = "Wake Up?"
@@ -169,7 +179,12 @@ loop do
                     system("clear")
 
                     # begin main game loop
-                    main_game_loop(save, current_save)
+                    won = main_game_loop(save, current_save)
+
+                    if won == "victory!"
+                        save.delete(current_save)
+                        File.write("./files/save.json", JSON.generate(save))
+                    end
                 end
             end
         end
@@ -197,7 +212,7 @@ loop do
 
                 if answer == "Yes"
                     save.delete(current_save)
-                    File.write("save.json", JSON.generate(save))
+                    File.write("./files/save.json", JSON.generate(save))
                     puts "Save Deleted!\n\n"
                 end
             else
