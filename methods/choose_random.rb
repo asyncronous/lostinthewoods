@@ -28,6 +28,8 @@ def choose_random_encounter(random_encounter, enc)
 end
 
 def hero_died(hero, rand_area)
+    sleep 1.5
+    
     if hero.deaths.include?(rand_area["id"])
         return rand_area["died_description"]
     # else display normal description
@@ -37,6 +39,8 @@ def hero_died(hero, rand_area)
 end
 
 def hero_died_enc(hero, rand_enc)
+    sleep 1.5
+    
     if hero.deaths.include?(rand_enc["id"])
         return rand_enc["died_description"]
     # else display normal description

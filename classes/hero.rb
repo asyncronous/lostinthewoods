@@ -30,7 +30,7 @@ class Hero
 
     def item_add_swap(items_add)
         prompt = TTY::Prompt.new(active_color: :red)
-        a = AsciiArt.new("./files/scary-woods.jpg")
+        a = AsciiArt.new("./files/scary_woods2.jpg")
         
         items_add.each do |item| 
             if @inventory.include?(item) == false
@@ -59,7 +59,6 @@ class Hero
                 end
             end
         end
-
     end
 
     def dead_checker(enc, area)

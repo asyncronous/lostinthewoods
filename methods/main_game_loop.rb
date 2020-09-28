@@ -1,5 +1,4 @@
 # gems and libraries
-# require 'highline/import'
 require 'asciiart'
 require 'rainbow'
 require 'tty-prompt'
@@ -15,23 +14,19 @@ require_relative 'encounter_results'
 def main_game_loop(master_save, curr_save)
     # generate hero from save data
     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
-
     # generate array of descriptions from files
     area_descriptions = JSON.parse(File.read("./files/area_descriptions.json", symbolize_names: true))
-
     # generate array of encounters from files
     encounters = JSON.parse(File.read("./files/encounters.json", symbolize_names: true))
-
     # number of forest areas survived
     num_areas = 0
-
     prompt = TTY::Prompt.new(active_color: :red)
 
     # wake up loop
     loop do
         system("clear")
-        a = AsciiArt.new("./files/scary-woods.jpg")
-        puts a.to_ascii_art(color: true, width: 80)
+        a = AsciiArt.new("./files/scary_woods2.jpg")
+        puts a.to_ascii_art(color: true, width: 100)
 
         puts "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n"
         
@@ -43,7 +38,7 @@ def main_game_loop(master_save, curr_save)
         # random area/encounter loop
         loop do
             system("clear")
-            puts a.to_ascii_art(color: true, width: 80)
+            puts a.to_ascii_art(color: true, width: 100)
 
             # choose random area from area descriptions list, make sure you dont get same in a row
             rand_area = choose_random_area(rand_area, area_descriptions)
@@ -51,24 +46,18 @@ def main_game_loop(master_save, curr_save)
             rand_enc = choose_random_encounter(rand_enc, encounters)
             # if hero died to this area, display alt description
             puts hero_died(hero, rand_area)
-            
-            sleep 1.5
-            
             # if hero died to this enc, display alt description
             puts hero_died_enc(hero, rand_enc)
-    
-            sleep 1.5
             
             # list all items in menu
             item_list = []
             hero.inventory.each {|i| item_list << i}
             item = prompt.select("You have the following items available, what do you choose?:\n", item_list)
-
             system("clear")
-            puts a.to_ascii_art(color: true, width: 80)
-            
+
+            puts a.to_ascii_art(color: true, width: 100)
             puts "You try to use the #{item}!\n\n"
-            
+
             # figure out which condition has been met, puts description to screen
             condition = compute_result(item, rand_enc)
             # change health and sanity
@@ -122,8 +111,12 @@ def main_game_loop(master_save, curr_save)
                 end
             end
 
-            answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue"])
+            # display stats before continuing or leaving game
+            answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue", "Back to Title Screen"])
             system("clear")
+            if answer == "Back to Title Screen"
+                return
+            end
         end
     end
 end

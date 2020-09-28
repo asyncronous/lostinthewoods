@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'json'
+gem 'tty-prompt'
+gem 'rmagick'
+gem 'asciiart'
+gem 'rainbow'
