@@ -39,15 +39,15 @@ class Hero
                     @inventory.each {|i| item_list << i}
                     item_list << "Leave item"
 
-                    item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list)
+                    item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list, per_page: 8)
                     system("clear")
-                    puts a.to_ascii_art(color: true, width: 80)
+                    puts a.to_ascii_art(color: true, width: 100)
 
                     if item_to_swap != "Leave item"
                         
                         answer = prompt.select("Are you sure?\n", ["Yes", "No"])
                         system("clear")
-                        puts a.to_ascii_art(color: true, width: 80)
+                        puts a.to_ascii_art(color: true, width: 100)
 
                         if answer == "Yes"
                             @inventory.delete(item_to_swap)

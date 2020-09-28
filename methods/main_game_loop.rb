@@ -10,17 +10,24 @@ require_relative '../classes/hero'
 # main game loop helper methods
 require_relative 'choose_random'
 require_relative 'encounter_results'
+require_relative 'yates_shuffle'
 
 def main_game_loop(master_save, curr_save)
     # generate hero from save data
     hero = Hero.new(curr_save["name"], curr_save["inventory"], curr_save["deaths"])
     # generate array of descriptions from files
     area_descriptions = JSON.parse(File.read("./files/area_descriptions.json", symbolize_names: true))
+    # area_descri
     # generate array of encounters from files
     encounters = JSON.parse(File.read("./files/encounters.json", symbolize_names: true))
     # number of forest areas survived
     num_areas = 0
     prompt = TTY::Prompt.new(active_color: :red)
+
+    # its shufflin time
+    max_count = encounters.length 
+    count = 0
+    encounters_dupe = fy_shuffle(encounters)
 
     # wake up loop
     loop do
@@ -42,13 +49,24 @@ def main_game_loop(master_save, curr_save)
 
             # choose random area from area descriptions list, make sure you dont get same in a row
             rand_area = choose_random_area(rand_area, area_descriptions)
-            # choose random encounter from encounter list, make sure you dont get same in a row
-            rand_enc = choose_random_encounter(rand_enc, encounters)
+
+            # reshuffle deck when you run out,
+            if count < max_count - 1
+                rand_enc = encounters_dupe[count]
+                count += 1
+            else
+                count = 0
+                encounters_dupe = fy_shuffle(encounters)
+                rand_enc = encounters_dupe[count]
+                count += 1
+            end
+            
             # if hero died to this area, display alt description
             puts hero_died(hero, rand_area)
             # if hero died to this enc, display alt description
             puts hero_died_enc(hero, rand_enc)
-            
+            # debug
+            hero.health = 100
             # list all items in menu
             item_list = []
             hero.inventory.each {|i| item_list << i}
@@ -112,7 +130,6 @@ def main_game_loop(master_save, curr_save)
             end
 
             # display stats before continuing or leaving game
-            puts "You have survived #{num_areas} areas."
             answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue", "Back to Title Screen"])
             system("clear")
             if answer == "Back to Title Screen"

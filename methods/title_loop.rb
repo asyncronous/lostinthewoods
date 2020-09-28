@@ -30,6 +30,8 @@ def title_looper(argument_save)
         save = []
         save = JSON.parse(File.read("files/save.json", symbolize_names: true))
         current_save = nil
+
+        # check if argument_save matches a save game, if it doesn't current_save will return nil and just go to title screen
         if argument_save != nil
             current_save = save.find {|save_game| save_game["name"] == argument_save}
         end
@@ -233,21 +235,18 @@ def title_looper(argument_save)
         
         # special condition when you enter save game as an argument in shell script launcher
         elsif answer == "Fastload"
-            answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
             system("clear")
             puts a.to_ascii_art(color: true, width: 140)
             
-            if answer == "Yes"
-                puts "Currently playing as #{final_input}"
-                sleep 0.75
-                system("clear")
+            puts "Currently playing as #{argument_save}"
+            sleep 0.75
+            system("clear")
+
+            won = main_game_loop(save, current_save)
                 
-                won = main_game_loop(save, current_save)
-                    
-                if won == "victory!"
-                    save.delete(current_save)
-                    File.write("files/save.json", JSON.generate(save))
-                end
+            if won == "victory!"
+                save.delete(current_save)
+                File.write("files/save.json", JSON.generate(save))
             end
         end
     end

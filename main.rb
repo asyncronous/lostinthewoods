@@ -4,7 +4,7 @@ require_relative 'methods/argument_handler'
 
 args = ARGV
 
-if args.include?("-h") || args.include?("-help")
+if args.include?("-h") || args.include?("--help")
     puts "Help\n"
     puts "The following commands can be used as arguments for this application:\n-h, --help, -v, --verbose, --vh\n"
     puts "-h, --help or -vh will display these help messages.\n\n"
