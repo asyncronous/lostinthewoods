@@ -230,6 +230,8 @@ def title_looper(argument_save)
         elsif answer == "Exit"
             system("clear")
             exit
+        
+        # special condition when you enter save game as an argument in shell script launcher
         elsif answer == "Fastload"
             answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
             system("clear")

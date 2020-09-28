@@ -74,5 +74,6 @@ class Hero
             end
             return dead
         end
+        return dead
     end
 end

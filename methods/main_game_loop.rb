@@ -68,7 +68,7 @@ def main_game_loop(master_save, curr_save)
             #add items / check for duplicates and swap item if inv full
             hero.item_add_swap(rand_enc[condition]["benefit"]["items"])
 
-            #if dead, add encounter that killed player, and area they died in, and if sanity is 
+            #if dead, add encounter that killed player, and area they died in
             dead = hero.dead_checker(rand_area["id"], rand_enc["id"])
 
             #incr if sane
@@ -87,7 +87,7 @@ def main_game_loop(master_save, curr_save)
 
             # save to file
             File.write("./files/save.json", JSON.generate(master_save))
-    
+
             # if won the game
             if dead == false && num_areas > 7
                 answer = prompt.select("You have escaped the forest!\n", ["Back to Title Screen"])
@@ -112,6 +112,7 @@ def main_game_loop(master_save, curr_save)
             end
 
             # display stats before continuing or leaving game
+            puts "You have survived #{num_areas} areas."
             answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue", "Back to Title Screen"])
             system("clear")
             if answer == "Back to Title Screen"
