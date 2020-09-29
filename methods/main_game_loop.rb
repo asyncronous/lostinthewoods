@@ -72,6 +72,8 @@ def main_game_loop(master_save, curr_save)
       item_list = []
       hero.inventory.each { |i| item_list << i }
 
+      hero.sanity = 0
+
       # msg = if_insane(hero, "You have the following items available, what do you choose?:\n")
       item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list)
       system("clear")
