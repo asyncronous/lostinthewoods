@@ -242,9 +242,10 @@ def title_looper(argument_save)
       system("clear")
 
       won = main_game_loop(save, current_save)
+      argument_save = nil
 
       if won == "victory!"
-        save.delete(current_save)
+        save.delete(save_to_delete)
         File.write("files/save.json", JSON.generate(save))
       end
     end
