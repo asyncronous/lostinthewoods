@@ -63,23 +63,23 @@ def main_game_loop(master_save, curr_save)
       end
 
       # if hero died to this area, display alt description
-      puts hero_died(hero, rand_area)
+      if_insane_slow(hero, hero_died(hero, rand_area))
       # if hero died to this enc, display alt description
-      puts hero_died_enc(hero, rand_enc)
+      if_insane_slow(hero, hero_died_enc(hero, rand_enc))
       # debug
       # hero.sanity = 0
       # list all items in menu
       item_list = []
       hero.inventory.each { |i| item_list << i }
 
-      hero.sanity = 0
-
+      # hero.sanity = 0
+      # hero.sanity = 24
       # msg = if_insane(hero, "You have the following items available, what do you choose?:\n")
       item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list)
       system("clear")
 
       puts a.to_ascii_art(color: true, width: 100)
-      puts if_insane(hero, "You try to use the #{item}!\n\n")
+      if_insane_slow(hero, "You try to use the #{item}!\n\n")
 
       # figure out which condition has been met, puts description to screen
       condition = compute_result(hero, item, rand_enc)

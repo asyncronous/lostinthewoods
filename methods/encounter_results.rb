@@ -4,15 +4,18 @@ require_relative "random_cap"
 def compute_result(hero, item, encounter)
   if item == encounter["success_condition"]["item"]
     condition = "success_condition"
-    puts if_insane(hero, encounter[condition]["description"]) + "\n"
+    if_insane_slow(hero, encounter[condition]["description"])
+    puts "\n"
     return condition
   elsif item == encounter["neutral_condition"]["item"]
     condition = "neutral_condition"
-    puts if_insane(hero, encounter[condition]["description"]) + "\n"
+    if_insane_slow(hero, encounter[condition]["description"])
+    puts "\n"
     return condition
   else
     condition = "failure_condition"
-    puts Rainbow(if_insane(hero, encounter[condition]["description"])).red + "\n"
+    Rainbow(if_insane_slow(hero, encounter[condition]["description"])).red
+    puts "\n"
     return condition
   end
 end
