@@ -1,32 +1,32 @@
 [
     {
         "id": "clearing",
-        "base_description": "You have entered a clearing. The night is dark, like the stars have been snuffed out. You shiver at the crisp air.",
-        "died_description": "This clearing makes you feel ill, it smells of death, yours."
+        "base_description": "You have entered a clearing. The night is dark, like the stars have been snuffed out. You shiver at the crisp air.\n",
+        "died_description": "This clearing makes you feel ill, it smells of death, yours.\n"
     },
     {
         "id": "shack",
-        "base_description": "You come across a shack. Wary, you wander inside. The floorboards have been removed, revealing bare earth. The walls are scratched and stained with blood.",
-        "died_description": "You feel as though you've seen this shack before, you cautiously wander inside. The floorboards have been removed, revealing what looks like bare earth and human remains. You feel a presence."
+        "base_description": "You come across a shack. Wary, you wander inside. The floorboards have been removed, revealing bare earth. The walls are scratched and stained with blood.\n",
+        "died_description": "You feel as though you've seen this shack before, you cautiously wander inside. The floorboards have been removed, revealing what looks like bare earth and human remains. You feel a presence.\n"
     },
     {
         "id": "flowers",
-        "base_description": "Patches of flowers litter the forest floor, but without a gap in the canopy, how have they grown?",
-        "died_description": "The flowers that litter the forest floor smell sickly sweet, you can almost taste blood on your lips"
+        "base_description": "Patches of flowers litter the forest floor, but without a gap in the canopy, how have they grown?\n",
+        "died_description": "The flowers that litter the forest floor smell sickly sweet, you can almost taste blood on your lips\n"
     },
     {
         "id": "log",
-        "base_description": "To the left you spy a skeleton of a once great tree lying in its grave, rotting. It appears to have been ripped out of the ground by hands the size of houses.",
-        "died_description": "A long dead tree lies along the path to your left. As the wind plays along the roots a low wail can be heard, from behind you."
+        "base_description": "To the left you spy a skeleton of a once great tree lying in its grave, rotting. It appears to have been ripped out of the ground by hands the size of houses.\n",
+        "died_description": "A long dead tree lies along the path to your left. As the wind plays along the roots a low wail can be heard, from behind you.\n"
     },
     {
         "id": "sap",
-        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them",
-        "died_description": "The trees cry blood, and seem to turn towards you as you pass them."
+        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them\n",
+        "died_description": "The trees cry blood, and seem to turn towards you as you pass them.\n"
     },
     {
         "id": "sap",
-        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them",
-        "died_description": "The trees cry blood, and seem to turn towards you as you pass them."
+        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them\n",
+        "died_description": "The trees cry blood, and seem to turn towards you as you pass them.\n"
     }    
 ]

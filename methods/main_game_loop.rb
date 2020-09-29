@@ -33,10 +33,12 @@ def main_game_loop(master_save, curr_save)
   # wake up loop
   loop do
     system("clear")
-    a = AsciiArt.new("./files/scary_woods2.jpg")
+    a = AsciiArt.new("./files/scary_woods3.jpg")
+    b = AsciiArt.new("./files/scary_woods_low_sanity.jpg")
+
     puts a.to_ascii_art(color: true, width: 100)
 
-    puts "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n"
+    if_insane_slow(hero, "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n")
 
     answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue"])
 
@@ -46,7 +48,8 @@ def main_game_loop(master_save, curr_save)
     # random area/encounter loop
     loop do
       system("clear")
-      puts a.to_ascii_art(color: true, width: 100)
+      woods = woods_swapper(hero.sanity, a, b)
+      puts woods.to_ascii_art(color: true, width: 100)
 
       # choose random area from area descriptions list, make sure you dont get same in a row
       rand_area = choose_random_area(rand_area, area_descriptions)
@@ -78,7 +81,7 @@ def main_game_loop(master_save, curr_save)
       item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list)
       system("clear")
 
-      puts a.to_ascii_art(color: true, width: 100)
+      puts woods.to_ascii_art(color: true, width: 100)
       if_insane_slow(hero, "You try to use the #{item}!\n\n")
 
       # figure out which condition has been met, puts description to screen
