@@ -67,7 +67,7 @@ def main_game_loop(master_save, curr_save)
       # if hero died to this enc, display alt description
       puts hero_died_enc(hero, rand_enc)
       # debug
-      hero.sanity = 0
+      # hero.sanity = 0
       # list all items in menu
       item_list = []
       hero.inventory.each { |i| item_list << i }
