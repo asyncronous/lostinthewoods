@@ -1,15 +1,18 @@
-def compute_result(item, encounter)
+require "rainbow"
+require_relative "random_cap"
+
+def compute_result(hero, item, encounter)
   if item == encounter["success_condition"]["item"]
     condition = "success_condition"
-    puts encounter[condition]["description"] + "\n"
+    puts if_insane(hero, encounter[condition]["description"]) + "\n"
     return condition
   elsif item == encounter["neutral_condition"]["item"]
     condition = "neutral_condition"
-    puts encounter[condition]["description"] + "\n"
+    puts if_insane(hero, encounter[condition]["description"]) + "\n"
     return condition
   else
     condition = "failure_condition"
-    puts encounter[condition]["description"] + "\n"
+    puts Rainbow(if_insane(hero, encounter[condition]["description"])).red + "\n"
     return condition
   end
 end

@@ -11,6 +11,7 @@ require_relative "../classes/hero"
 require_relative "choose_random"
 require_relative "encounter_results"
 require_relative "yates_shuffle"
+require_relative "random_cap"
 
 def main_game_loop(master_save, curr_save)
   # generate hero from save data
@@ -66,18 +67,20 @@ def main_game_loop(master_save, curr_save)
       # if hero died to this enc, display alt description
       puts hero_died_enc(hero, rand_enc)
       # debug
-      hero.health = 100
+      hero.sanity = 0
       # list all items in menu
       item_list = []
       hero.inventory.each { |i| item_list << i }
-      item = prompt.select("You have the following items available, what do you choose?:\n", item_list)
+
+      # msg = if_insane(hero, "You have the following items available, what do you choose?:\n")
+      item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list)
       system("clear")
 
       puts a.to_ascii_art(color: true, width: 100)
-      puts "You try to use the #{item}!\n\n"
+      puts if_insane(hero, "You try to use the #{item}!\n\n")
 
       # figure out which condition has been met, puts description to screen
-      condition = compute_result(item, rand_enc)
+      condition = compute_result(hero, item, rand_enc)
       # change health and sanity
       hero.adjust_stats(health_change(rand_enc, condition), sanity_change(rand_enc, condition))
 
@@ -127,7 +130,7 @@ def main_game_loop(master_save, curr_save)
       end
 
       # display stats before continuing or leaving game
-      answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue", "Back to Title Screen"])
+      answer = prompt.select(if_insane(hero, "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n"), ["Continue", "Back to Title Screen"])
       system("clear")
       if answer == "Back to Title Screen"
         return

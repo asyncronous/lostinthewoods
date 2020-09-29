@@ -31,10 +31,11 @@ def hero_died(hero, rand_area)
   sleep 1.5
 
   if hero.deaths.include?(rand_area["id"])
-    return rand_area["died_description"]
+    if_insane(hero, rand_area["died_description"])
+
     # else display normal description
   else
-    return rand_area["base_description"]
+    if_insane(hero, rand_area["base_description"])
   end
 end
 
@@ -42,9 +43,9 @@ def hero_died_enc(hero, rand_enc)
   sleep 1.5
 
   if hero.deaths.include?(rand_enc["id"])
-    return rand_enc["died_description"]
+    if_insane(hero, rand_enc["died_description"])
     # else display normal description
   else
-    return rand_enc["base_description"]
+    if_insane(hero, rand_enc["base_description"])
   end
 end
