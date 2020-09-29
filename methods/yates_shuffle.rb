@@ -6,4 +6,3 @@ def fy_shuffle(arr)
     end
     return a_copy
 end
-  
