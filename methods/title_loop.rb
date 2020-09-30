@@ -17,6 +17,7 @@ require_relative "encounter_results"
 def title_looper(argument_save)
   system("clear")
   title_prompt = TTY::Prompt.new(active_color: :red)
+  marker = ">"
   a = AsciiArt.new("files/title2.png")
 
   #main title screen loop
@@ -38,7 +39,7 @@ def title_looper(argument_save)
     #prompt
     answer = ""
     if current_save == nil
-      answer = title_prompt.select("\n", ["Start", "Save-Games", "Help", "Exit"])
+      answer = title_prompt.select("\n", ["Start", "Save-Games", "Help", "Exit"], symbols: { marker: marker })
     else
       answer = "Fastload"
     end
@@ -82,7 +83,7 @@ def title_looper(argument_save)
 
         current_save = save.find { |save_game| save_game["name"] == final_input }
 
-        answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
+        answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"], symbols: { marker: marker })
         system("clear")
         puts a.to_ascii_art(color: true, width: 140)
 
@@ -104,7 +105,7 @@ def title_looper(argument_save)
         save.each { |save| save_games << save["name"] }
         save_games << "Create New Save"
 
-        answer = title_prompt.select("Choose a Save Game:\n", save_games)
+        answer = title_prompt.select("Choose a Save Game:\n", save_games, symbols: { marker: marker })
         system("clear")
         puts a.to_ascii_art(color: true, width: 140)
 
@@ -150,7 +151,7 @@ def title_looper(argument_save)
           current_save = save.find { |save_game| save_game["name"] == final_input }
 
           # wake up prompt
-          answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
+          answer = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"], symbols: { marker: marker })
           system("clear")
           puts a.to_ascii_art(color: true, width: 140)
 
@@ -171,7 +172,7 @@ def title_looper(argument_save)
           current_save = save.find { |save_game| save_game["name"] == answer }
 
           # wake up prompt
-          selection = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"])
+          selection = title_prompt.select("Wake Up?", ["Yes", "Back to Title Screen"], symbols: { marker: marker })
           system("clear")
           puts a.to_ascii_art(color: true, width: 140)
 
@@ -198,7 +199,7 @@ def title_looper(argument_save)
         save.each { |save| save_games << save["name"] }
         save_games << "Back to Title Screen"
 
-        answer = title_prompt.select("Delete a Save Game:\n", save_games)
+        answer = title_prompt.select("Delete a Save Game:\n", save_games, symbols: { marker: marker })
         system("clear")
         puts a.to_ascii_art(color: true, width: 140)
 
@@ -206,7 +207,7 @@ def title_looper(argument_save)
           current_save = save.find { |save_game| save_game["name"] == answer }
 
           # double check!
-          answer = title_prompt.select("Are you sure?\n", ["Yes", "No"])
+          answer = title_prompt.select("Are you sure?\n", ["Yes", "No"], symbols: { marker: marker })
           system("clear")
           puts a.to_ascii_art(color: true, width: 140)
 
@@ -224,7 +225,7 @@ def title_looper(argument_save)
     # help
     elsif answer == "Help"
       puts "Help Screen\n\n"
-      answer = title_prompt.select("This is place holder text for the help screen,\n which will detail to the user how to interact with the game,\n what the goal is, etc\n\n", "Back to Title Screen")
+      answer = title_prompt.select("This is place holder text for the help screen,\n which will detail to the user how to interact with the game,\n what the goal is, etc\n\n", "Back to Title Screen", symbols: { marker: marker })
       system("clear")
 
     # exit

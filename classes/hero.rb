@@ -41,12 +41,12 @@ class Hero
           @inventory.each { |i| item_list << i }
           item_list << "Leave item"
 
-          item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list, per_page: 8)
+          item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list, per_page: 8, symbols: { marker: ">" })
           system("clear")
           puts woods.to_ascii_art(color: true, width: 100)
 
           if item_to_swap != "Leave item"
-            answer = prompt.select("Are you sure?\n", ["Yes", "No"])
+            answer = prompt.select("Are you sure?\n", ["Yes", "No"], symbols: { marker: ">" })
             system("clear")
             puts woods.to_ascii_art(color: true, width: 100)
 
