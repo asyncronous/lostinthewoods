@@ -9,7 +9,7 @@ end
 def random_gsub(string)
   rand_chars = ["     ", "   ", "", "", "","", "", "", "", "die", "DIE", "DEVIL", "RED", "blood", "6", "kill", "murder", "?", "!", "#"]
   new_string = string.chars.map { |c| (rand 5) != 0 ? c : c = rand_chars.sample}.join
-  new_string = Rainbow(random_cap(new_string)).red.background("75041A")
+  new_string = Rainbow(random_cap(new_string)).red.background("3a0101")
   return new_string
 end
 
@@ -46,7 +46,7 @@ end
 
 def type_slow_b(string, speed)
   string.each_char do |a| 
-    print Rainbow(a).red.background("75041A")
+    print Rainbow(a).red.background("3a0101")
     add_random_font
     sleep speed
   end
@@ -57,7 +57,7 @@ def add_random_font
   font = TTY::Font.new(:straight)
   rand_chars = ["die", "dvil", "bl0d", "kil", "brn", "gor", " "]
   if rand(300) == 0
-    print Rainbow(font.write(random_cap(rand_chars.sample))).red.background("75041A")
+    print Rainbow(font.write(random_cap(rand_chars.sample))).red.background("3a0101")
   end
 end
 
