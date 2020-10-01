@@ -9,9 +9,8 @@ args = ARGV.clone
 # ARGV.each { |opt| process_argv(opt)}
 op = OptionParser.new do |opts|
     opts.on("-v", "--verbose", "Show indepth description of game!") do
-        @options[:verbose] = true
+      @options[:verbose] = true
     end
-    
 end
 
 op.parse!

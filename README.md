@@ -1,6 +1,8 @@
 #### README
 
-Before continuing ensure you are running either Windows Subsystem for Linux (WSL) or Mac OS with a ruby interpreter such as rbenv installed. 
+Before continuing ensure you are running either Windows Subsystem for Linux (WSL) or Mac OS with a ruby interpreter such as rbenv installed. The version of ruby needs to be atleast 2.7.1, as the code implentation uses method functionality only recently added to ruby.
+
+To install:
 
 1. Please enter 'gem install bundler' in the terminal if you do not have the ruby bundler gem installed
 2. Please run './installer.sh' from the terminal in this folder to install gem dependencies
