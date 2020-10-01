@@ -1,2 +1,2 @@
 #!/bin/bash
-ruby bundler_helper.rb
+ruby gem_bundler.rb

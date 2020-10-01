@@ -1,2 +1,2 @@
 #!/bin/bash
-ruby -W:no-deprecated main.rb $@
+ruby -W:no-deprecated argument_parser.rb $@
