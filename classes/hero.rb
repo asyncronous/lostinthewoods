@@ -71,7 +71,7 @@ class Hero
       dead = true
       #insane
       if @sanity == 0
-        @inventory = ["revolver", "cross", "trinket"]
+        @inventory = ["revolver", "cross", "trinket", "lamp"]
       end
       return dead
     end

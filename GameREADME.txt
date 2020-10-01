@@ -2,7 +2,7 @@ README
 
 Before continuing ensure you are running either Windows Subsystem for Linux (WSL) or Mac OS with a ruby interpreter such as rbenv installed. 
 
-1. Please run 'gem bundler install' if you do not have the ruby bundler gem installed
+1. Please enter 'gem install bundler' in the terminal if you do not have the ruby bundler gem installed
 2. Please run './installer.sh' from the terminal in this folder to install gem dependencies
     2a. If this fails please refer to the ruby Gemfile in this folder and install the prerequisite gems
 3. Please run ./lostinthewoods.sh to run the program. Run ./lostinthewoods.sh --help for help information.

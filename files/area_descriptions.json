@@ -1,32 +1,62 @@
 [
     {
         "id": "clearing",
-        "base_description": "You have entered a clearing. The night is dark, like the stars have been snuffed out. You shiver at the crisp air.\n",
-        "died_description": "This clearing makes you feel ill, it smells of death, yours.\n"
+        "base_description": "You have entered a clearing. The night is dark, like the stars have been snuffed out. You shiver at the crisp air.\n\n",
+        "died_description": "This clearing makes you feel ill, it smells of death, yours.\n\n"
     },
     {
         "id": "shack",
-        "base_description": "You come across a shack. Wary, you wander inside. The floorboards have been removed, revealing bare earth. The walls are scratched and stained with blood.\n",
-        "died_description": "You feel as though you've seen this shack before, you cautiously wander inside. The floorboards have been removed, revealing what looks like bare earth and human remains. You feel a presence.\n"
+        "base_description": "You come across a shack. Wary, you wander inside.\nThe floorboards have been removed, revealing bare earth. The walls are scratched and stained with blood.\n\n",
+        "died_description": "You feel as though you've seen this shack before, you cautiously wander inside. The floorboards have been removed, revealing what looks like bare earth and human remains. You feel a presence.\n\n"
     },
     {
         "id": "flowers",
-        "base_description": "Patches of flowers litter the forest floor, but without a gap in the canopy, how have they grown?\n",
-        "died_description": "The flowers that litter the forest floor smell sickly sweet, you can almost taste blood on your lips\n"
+        "base_description": "Patches of flowers litter the forest floor, but without a gap in the canopy, how have they grown?\n\n",
+        "died_description": "The flowers that litter the forest floor smell sickly sweet, you can almost taste blood on your lips\n\n"
     },
     {
         "id": "log",
-        "base_description": "To the left you spy a skeleton of a once great tree lying in its grave, rotting. It appears to have been ripped out of the ground by hands the size of houses.\n",
-        "died_description": "A long dead tree lies along the path to your left. As the wind plays along the roots a low wail can be heard, from behind you.\n"
+        "base_description": "To the left you spy a skeleton of a once great tree lying in its grave, rotting.\nIt appears to have been ripped out of the ground by hands the size of houses.\n\n",
+        "died_description": "A long dead tree lies along the path to your left. As the wind plays along the roots a low wail can be heard.\n\n"
     },
     {
         "id": "sap",
-        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them\n",
-        "died_description": "The trees cry blood, and seem to turn towards you as you pass them.\n"
+        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them\n\n",
+        "died_description": "The trees cry blood, and seem to turn towards you as you pass them.\n\n"
     },
     {
-        "id": "sap",
-        "base_description": "On the nearby trees, you see red sap glistening down the bark. Your boots turn red from the sap as you pass them\n",
-        "died_description": "The trees cry blood, and seem to turn towards you as you pass them.\n"
-    }    
+        "id": "tallgrass",
+        "base_description": "The forest gives way to a field of tall grass, with no other options, you wade in.\n\n",
+        "died_description": "The forest gives way to a field of tall grass, it itches as it brushes against skin, a million microscopic bites.\n\n"
+    },
+    {
+        "id": "mushroom",
+        "base_description": "No matter where you set your feet, a mushroom squishes underneath your boot, a hideous sound.\n\n",
+        "died_description": "No matter where you set your feet, mushrooms in the shape of skulls squish underneath your boot.\n\n"
+    },
+    {
+        "id": "swamp",
+        "base_description": "Ahead, the ground is muddy and foul.\nYou can't see another path. As you trudge through the wet earth, no boot prints are left in your wake\n\n",
+        "died_description": "Ahead, the ground is muddy and foul.\nYou can't see another path. As you trudge through the mud, you can't help but imagine being swallowed whole.\n\n"
+    },
+    {
+        "id": "pondering",
+        "base_description": "The forest doesn't feel like a real forest. It feels like a maze, ever changing. Tormenting.\n\n",
+        "died_description": "No matter what you do, the forest keeps finding more and more ways for you to die. Is escape even a possibility?\n\n"
+    },
+    {
+        "id": "time",
+        "base_description": "How long have you been wandering through these trees. They're beginning to look the same, does this forest ever end?\n\n",
+        "died_description": "Around and around and around. The trees the trees the trees. You die and you die and you die. No peace.\nNo.\nPeace.\nNo.\n\n"
+    },
+    {
+        "id": "colour",
+        "base_description": "You seem to remember knowing what colour looks like. But all you can see is black, and white, and red.\nThere is no brightness in the Forest.\n\n",
+        "died_description": "Goodness does not belong in the forest. Colour brings joy, and joy is devoured by the forest.\nOnly the darkness of night, the white of pus, and the red of blood remains.\n\n"
+    },
+    {
+        "id": "death",
+        "base_description": "You... find it hard to remember before the forest.\nYour hat and coat, where did they come fromt. Why does your revolver never run out of bullets?\nThis place... what is this.\n\n",
+        "died_description": "You look through the screen at the PLAYER. 'Please let me go', 'PLEASE LET ME GO', 'FREE ME FROM THIS ETERNAL TORMENT, DEMON' '\n\n"
+    }        
 ]

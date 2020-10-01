@@ -1,5 +1,5 @@
 require "rainbow"
-require_relative "random_cap"
+require_relative "sanity_methods"
 
 def compute_result(hero, item, encounter)
   if item == encounter["success_condition"]["item"]

@@ -11,7 +11,7 @@ require_relative "../classes/hero"
 require_relative "choose_random"
 require_relative "encounter_results"
 require_relative "yates_shuffle"
-require_relative "random_cap"
+require_relative "sanity_methods"
 
 def main_game_loop(master_save, curr_save)
   # generate hero from save data
@@ -27,6 +27,7 @@ def main_game_loop(master_save, curr_save)
   # its shufflin time
   max_count = encounters.length
   count = 0
+  areas_dupe = fy_shuffle(area_descriptions)
   encounters_dupe = fy_shuffle(encounters)
 
   # wake up loop
@@ -49,23 +50,26 @@ def main_game_loop(master_save, curr_save)
     # random area/encounter loop
     loop do
       system("clear")
+      # asciiart swapper
       woods = woods_swapper(hero.sanity, a, b)
+      # menu marker swapper
       marker = marker_swapper(hero.sanity, c, d)
       puts woods.to_ascii_art(color: true, width: 100)
 
-      # choose random area from area descriptions list, make sure you dont get same in a row
-      rand_area = choose_random_area(rand_area, area_descriptions)
-
-      # reshuffle deck when you run out,
+      # choose next enc/area in randomised array, reshuffle decks when you run out
       if count < max_count - 1
+        rand_area = areas_dupe[count]
         rand_enc = encounters_dupe[count]
         count += 1
       else
         count = 0
+        areas_dupe = fy_shuffle(area_descriptions)
         encounters_dupe = fy_shuffle(encounters)
+        rand_area = areas_dupe[count]
         rand_enc = encounters_dupe[count]
         count += 1
       end
+
       hero.sanity = 0
       # if hero died to this area, display alt description
       if_insane_slow(hero, hero_died(hero, rand_area))

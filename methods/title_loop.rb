@@ -14,6 +14,8 @@ require_relative "main_game_loop"
 require_relative "choose_random"
 require_relative "encounter_results"
 
+# require "audio-playback"
+
 def title_looper(argument_save)
   system("clear")
   title_prompt = TTY::Prompt.new(active_color: :red)
@@ -73,7 +75,7 @@ def title_looper(argument_save)
         # initialise new save
         new_save = {
           "name" => final_input,
-          "inventory" => ["revolver", "cross", "trinket"],
+          "inventory" => ["revolver", "cross", "trinket", "lamp"],
           "deaths" => [],
         }
 
@@ -139,7 +141,7 @@ def title_looper(argument_save)
           # initialise new save
           new_save = {
             "name" => final_input,
-            "inventory" => ["revolver", "cross", "trinket"],
+            "inventory" => ["revolver", "cross", "trinket", "lamp"],
             "deaths" => [],
           }
 

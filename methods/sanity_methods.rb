@@ -15,9 +15,7 @@ end
 
 def if_insane_slow(hero, string)
     if hero.sanity < 25
-      # system("echo '\033[48;2;63;0;0m'")
       type_slow_b(random_gsub(string), 0.025)
-      # system("echo '\033[48;2;63;0;0m'")
     elsif hero.sanity < 75 
       type_slow(random_cap(string), 0.01)
     else
@@ -27,7 +25,6 @@ end
 
 def if_insane(hero, string)
   if hero.sanity < 25
-    # system("echo '\033[48;2;63;0;0m'")
     return string = random_gsub(string)
   elsif hero.sanity < 75 
     return string = random_cap(string)
@@ -50,17 +47,17 @@ end
 def type_slow_b(string, speed)
   string.each_char do |a| 
     print Rainbow(a).red.background("75041A")
-    check_rand
+    add_random_font
     sleep speed
   end
 end
 
-def check_rand
+def add_random_font
   pastel = Pastel.new
   font = TTY::Font.new(:straight)
   rand_chars = ["die", "dvil", "bl0d", "kil", "brn", "gor", " "]
   if rand(300) == 0
-    puts Rainbow(font.write(random_cap(rand_chars.sample))).red.background("75041A")
+    print Rainbow(font.write(random_cap(rand_chars.sample))).red.background("75041A")
   end
 end
 
