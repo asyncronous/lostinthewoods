@@ -30,7 +30,7 @@ class Hero
 
   def item_add_swap(items_add)
     prompt = TTY::Prompt.new(active_color: :red)
-    a = AsciiArt.new("./files/scary_woods2.jpg")
+    a = AsciiArt.new("./files/scary_woods3.jpg")
     b = AsciiArt.new("./files/scary_woods_low_sanity.jpg")
     woods = woods_swapper(@sanity, a, b)
 

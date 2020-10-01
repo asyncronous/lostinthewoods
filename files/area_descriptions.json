@@ -56,7 +56,7 @@
     },
     {
         "id": "death",
-        "base_description": "You... find it hard to remember before the forest.\nYour hat and coat, where did they come fromt. Why does your revolver never run out of bullets?\nThis place... what is this.\n\n",
+        "base_description": "You... find it hard to remember before the forest.\nYour hat and coat, where did they come from. Why does your revolver never run out of bullets?\nThis place... what is this.\n\n",
         "died_description": "You look through the screen at the PLAYER. 'Please let me go', 'PLEASE LET ME GO', 'FREE ME FROM THIS ETERNAL TORMENT, DEMON' '\n\n"
     }        
 ]

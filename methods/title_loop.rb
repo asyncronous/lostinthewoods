@@ -26,7 +26,6 @@ def title_looper(argument_save)
   loop do
     system("clear")
     puts a.to_ascii_art(color: true, width: 140)
-    # puts Rainbow("#{a.to_ascii_art(color: true, width: 120)}").red
 
     # initialise save variables
     save = []

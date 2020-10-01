@@ -114,9 +114,15 @@ def main_game_loop(master_save, curr_save)
 
       # save to file
       File.write("./files/save.json", JSON.generate(master_save))
-
+      
       # if won the game
       if dead == false && num_areas > 7
+        answer = prompt.select("You think you can see... green! Light! Have you finally escaped!?!\n", ["Wander forward"], symbols: { marker: marker })
+        system("clear")
+        light = AsciiArt.new("./files/lightattheend_2.jpg")
+        puts light.to_ascii_art(color: true, width: 100)
+
+        puts if_insane(hero, "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n")
         answer = prompt.select("You have escaped the forest!\n", ["Back to Title Screen"], symbols: { marker: marker })
         system("clear")
         return "victory!"
@@ -124,6 +130,12 @@ def main_game_loop(master_save, curr_save)
         # if dead
       elsif dead == true
         num_areas = 0
+        answer = prompt.select("Your vision fades to black for the last time.\n", ["Die"], symbols: { marker: marker })
+        system("clear")
+        death = AsciiArt.new("./files/skull_image.jpg")
+        puts death.to_ascii_art(color: true, width: 100)
+
+        puts if_insane(hero, "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n")
         answer = prompt.select("You are Dead", ["Wake Up", "Back to Title Screen"], symbols: { marker: marker })
 
         if answer == "Wake Up"
