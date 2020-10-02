@@ -1,13 +1,22 @@
 #### README
 
-Before continuing ensure you are running either Windows Subsystem for Linux (WSL) or Mac OS with a ruby interpreter such as rbenv installed. The version of ruby needs to be atleast 2.7.1, as the code implentation uses method functionality only recently added to ruby.
+Before continuing ensure you are running either Windows Subsystem for Linux (WSL) or Mac OS with a ruby interpreter such as rbenv installed. The version of ruby needs to be atleast 2.7.1, as the code implementation uses method functionality only recently added to ruby.
 
 To install:
 
-1. Please enter 'gem install bundler' in the terminal if you do not have the ruby bundler gem installed
-2. Please run './installer.sh' from the terminal in this folder to install gem dependencies
+1. Please ensure you are currently in the directory of this help file.
+2. Please enter 'gem install bundler' into your terminal if you do not have the ruby bundler gem installed
+3. Please run './installer.sh' from the terminal in this directory to install gem dependencies
     - If this fails please refer to the ruby Gemfile in this folder and install the prerequisite gems
-3. Please run ./lostinthewoods.sh to run the program. Run ./lostinthewoods.sh --help for help information.
+    - If you cannot find this file, the list of gem dependencies are:
+        - gem 'json'
+        - gem 'tty-prompt'
+        - gem 'rmagick'
+        - gem 'asciiart'
+        - gem 'rainbow'
+        - gem 'optparse'
+        - gem 'tty-font'
+4. Please run ./lostinthewoods.sh to run the program. Run ./lostinthewoods.sh --help for help information.
 
 #### Features: 
 Lost in the Woods is a ruby interpreted terminal app text adventure. 
