@@ -4,7 +4,7 @@ require "rainbow"
 require_relative "../methods/sanity_methods"
 
 class Hero
-  attr_accessor :health, :sanity, :inventory
+  attr_reader :sanity
 
   def initialize(name, inventory, deaths)
     @name = name
@@ -22,6 +22,18 @@ class Hero
     else
       return nil
     end    
+  end
+
+  def display_stats
+    return "health: #{@health} | sanity: #{@sanity} | inventory: #{@inventory.join(", ")}\n"
+  end
+
+  def get_inventory
+    return @inventory
+  end
+
+  def remove_items(items)
+    items.each { |item| @inventory.delete(item) }
   end
 
   def hero_died(encounter_area)

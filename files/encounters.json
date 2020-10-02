@@ -236,7 +236,7 @@
             "loss": {"health": 0, "sanity": 15, "items": ["trinket"]}
         },
         "failure_condition": {
-            "description": "You decide not to mess with the gate. You stare into its black void, the silent ferocity unnerving.",
+            "description": "You decide not to mess with the gate. You stare into its black void, the silent ferocity unnerving.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 0, "sanity": 10, "items": []}
         }

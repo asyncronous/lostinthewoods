@@ -41,7 +41,9 @@ def main_game_loop(master_save, curr_save)
 
     if_insane_slow(hero.sanity, "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n")
     marker = ">"
-    answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue"], symbols: { marker: marker })
+
+    # displa stats
+    answer = prompt.select(hero.display_stats, ["Continue"], symbols: { marker: marker })
 
     rand_area = ""
     rand_enc = ""
@@ -75,7 +77,8 @@ def main_game_loop(master_save, curr_save)
 
       # list all items in menu
       item_list = []
-      hero.inventory.each { |i| item_list << i }
+      hero.get_inventory.each { |i| item_list << i }
+      # hero.inventory.each { |i| item_list << i }
 
       item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list, per_page: 9, symbols: { marker: marker })
       system("clear")
@@ -89,7 +92,8 @@ def main_game_loop(master_save, curr_save)
       hero.adjust_stats(health_change(rand_enc, condition), sanity_change(rand_enc, condition))
 
       #remove items
-      rand_enc[condition]["loss"]["items"].each { |item| hero.inventory.delete(item) }
+      hero.remove_items(rand_enc[condition]["loss"]["items"])
+
       #add items / check for duplicates and swap item if inv full
       hero.item_add_swap(rand_enc[condition]["benefit"]["items"])
 
@@ -121,7 +125,7 @@ def main_game_loop(master_save, curr_save)
         light = AsciiArt.new("./files/lightattheend_2.jpg")
         puts light.to_ascii_art(color: true, width: 100)
 
-        puts if_insane(hero, "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n")
+        puts if_insane(hero, hero.display_stats)
         answer = prompt.select("You have escaped the forest!\n", ["Back to Title Screen"], symbols: { marker: marker })
         system("clear")
         return "victory!"
@@ -134,7 +138,8 @@ def main_game_loop(master_save, curr_save)
         death = AsciiArt.new("./files/skull_image.jpg")
         puts death.to_ascii_art(color: true, width: 100)
 
-        puts if_insane(hero, "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n")
+        # display stats
+        puts if_insane(hero, hero.display_stats)
         answer = prompt.select("You are Dead", ["Wake Up", "Back to Title Screen"], symbols: { marker: marker })
 
         if answer == "Wake Up"
@@ -148,7 +153,7 @@ def main_game_loop(master_save, curr_save)
       end
 
       # display stats before continuing or leaving game
-      answer = prompt.select(if_insane(hero, "health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n"), ["Continue", "Back to Title Screen"], symbols: { marker: marker })
+      answer = prompt.select(if_insane(hero, hero.display_stats), ["Continue", "Back to Title Screen"], symbols: { marker: marker })
       system("clear")
       if answer == "Back to Title Screen"
         return
