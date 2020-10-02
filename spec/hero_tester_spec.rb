@@ -23,8 +23,8 @@ describe Hero do
    context "change deaths and inventory on death" do 
       it "should add enc and area to deaths array" do 
          hero = Hero.new("Ben", ["sword", "dagger"], [])
-         hero.health = 0
-         hero.sanity
+         health_change = -200
+         hero.adjust_stats(health_change, 0)
          enc = "zombie"
          area = "grass"
          hero.dead_checker(enc, area)
@@ -33,21 +33,23 @@ describe Hero do
 
       it "should change inventory to default if sanity 0" do 
          hero = Hero.new("Ben", ["sword", "dagger"], [])
-         hero.health = 0
-         hero.sanity = 0
+         health_change = -200
+         sanity_change = -200
+         hero.adjust_stats(health_change, sanity_change)
          enc = "zombie"
          area = "grass"
          hero.dead_checker(enc, area)
-         expect(hero.inventory).to eq(["revolver", "cross", "trinket", "lamp"])
+         expect(hero.get_inventory).to eq(["revolver", "cross", "trinket", "lamp"])
       end
       it "should leave inventory if sanity more than 0" do 
          hero = Hero.new("Ben", ["sword", "dagger"], [])
-         hero.health = 0
-         hero.sanity = 100
+         health_change = -200
+         # sanity_change = -200
+         hero.adjust_stats(health_change, 0)
          enc = "zombie"
          area = "grass"
          hero.dead_checker(enc, area)
-         expect(hero.inventory).to eq(["sword", "dagger"])
+         expect(hero.get_inventory).to eq(["sword", "dagger"])
       end 
    end 
 end

@@ -4,7 +4,7 @@ require "rainbow"
 require_relative "../methods/sanity_methods"
 
 class Hero
-  attr_reader :sanity
+  attr_reader :health, :sanity, :deaths
 
   def initialize(name, inventory, deaths)
     @name = name

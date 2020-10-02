@@ -22,5 +22,18 @@ To install:
 Lost in the Woods is a ruby interpreted terminal app text adventure. 
 The game includes persistent save games, a randomly generated (each element pre-written) series of encounters and areas in a dark, foreboding forest!
 
-During the game loop the player will use items, gain or lose sanity and/or health, and gain or lose items from their inventory.
+During the game loop the player will use items, gain or lose sanity and/or health, and gain or lose items from their inventory. Depending on your sanity level, the game will display text differently, with random capitalisation, and turning some of it red.
 Finally, every time you die (for each save file) the game will remember and change the descriptions of enemy encounters and areas that you died to/in.
+
+#### Screenshots
+Screenshot One - Main Menu
+![screenshot one - Main Menu](./files/screen1.jpg)
+
+Screenshot Two - Normal Sanity Encounter Expl.
+![screenshot two - Normal Text](./files/screen2.png)
+
+Screenshot Three - Med Sanity Encounter Expl.
+![screenshot three - Randomly Capitalised text](./files/screen3.png)
+
+Screenshot Four - Low Sanity Encounter Expl.
+![screenshot four - Randomly subsituted, red, capitalisided text](./files/screen4.jpg)
