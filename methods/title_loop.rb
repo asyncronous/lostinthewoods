@@ -227,7 +227,21 @@ def title_looper(argument_save)
     # help
     elsif answer == "Help"
       puts "Help Screen\n\n"
-      answer = title_prompt.select("This is place holder text for the help screen,\n which will detail to the user how to interact with the game,\n what the goal is, etc\n\n", "Back to Title Screen", symbols: { marker: marker })
+      puts "In Lost In The Woods, you awaken in a foreboding, dark forest."
+      puts "Strapped to your waste you find a revolver, around your neck a crucifix, in your pocket a curious trinket, and in your hand a lamp to cut through the dark night.\n\n"
+      puts "Navigation:\n\nOn the title screen, you can see four options 'Start/Save Games/Help/Exit'"
+      puts "Start will either: prompt you to create a new save game if none are present"
+      puts "(Save games must only be named with lower case or upper case standard alpha characters e.g. a-z, A-Z)"
+      puts " or present a list of save games for you to choose from as well as an extra option to create a new save game."
+      puts "Save Games will allow you to delete save games, just select the save game you wish to delete, press enter, and follow the prompts"
+      puts "Help displays this screen, of course!"
+      puts "Exit will terminate the program.\n\n"
+      puts "Gameplay:\n\nWhen loading in, you will be presented with introductory flavour text.\n"
+      puts "Then the game will randomly present you with an encounter that you will then decide how to react to."
+      puts "All the items in your inventory will be displayed, you have to simply select the item you wish to use with the up and down arrow keys and press enter."
+      puts "Other times you may have to validate a choice by selecting Yes or No and pressing enter."
+
+      answer = title_prompt.select("", "Back to Title Screen", symbols: { marker: marker })
       system("clear")
 
     # exit
