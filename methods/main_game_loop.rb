@@ -8,7 +8,6 @@ require "json"
 require_relative "../classes/hero"
 
 # main game loop helper methods
-require_relative "choose_random"
 require_relative "encounter_results"
 require_relative "yates_shuffle"
 require_relative "sanity_methods"
@@ -40,7 +39,7 @@ def main_game_loop(master_save, curr_save)
 
     puts a.to_ascii_art(color: true, width: 100)
 
-    if_insane_slow(hero, "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n")
+    if_insane_slow(hero.sanity, "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n")
     marker = ">"
     answer = prompt.select("health: #{hero.health} | sanity: #{hero.sanity} | inventory: #{hero.inventory.join(", ")}\n", ["Continue"], symbols: { marker: marker })
 
@@ -70,23 +69,22 @@ def main_game_loop(master_save, curr_save)
         count += 1
       end
 
-      # if hero died to this area, display alt description
-      if_insane_slow(hero, hero_died(hero, rand_area))
-      # if hero died to this enc, display alt description
-      if_insane_slow(hero, hero_died_enc(hero, rand_enc))
+      # if hero died to this area/enc, display alt description
+      hero.hero_died(rand_area)
+      hero.hero_died(rand_enc)
 
       # list all items in menu
       item_list = []
       hero.inventory.each { |i| item_list << i }
 
-      item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list, symbols: { marker: marker })
+      item = prompt.select(if_insane(hero, "You have the following items available, what do you choose?:\n"), item_list, per_page: 9, symbols: { marker: marker })
       system("clear")
 
       puts woods.to_ascii_art(color: true, width: 100)
-      if_insane_slow(hero, "You try to use the #{item}!\n\n")
+      if_insane_slow(hero.sanity, "You try to use the #{item}!\n\n")
 
       # figure out which condition has been met, puts description to screen
-      condition = compute_result(hero, item, rand_enc)
+      condition = hero.compute_result(item, rand_enc)
       # change health and sanity
       hero.adjust_stats(health_change(rand_enc, condition), sanity_change(rand_enc, condition))
 
@@ -114,7 +112,7 @@ def main_game_loop(master_save, curr_save)
 
       # save to file
       File.write("./files/save.json", JSON.generate(master_save))
-      
+
       # if won the game
       if dead == false && num_areas > 7
         answer = prompt.select("You think you can see... green! Light! Have you finally escaped!?!\n", ["Wander forward"], symbols: { marker: marker })

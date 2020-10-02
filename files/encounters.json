@@ -40,7 +40,7 @@
         "failure_condition": {
             "description": "The request for valuables was a ruse! He's a madman! No matter what you do, the thug decends upon you, and everything goes black.\nWhen you awaken your breathe is wheezy, like you body is covered in holes. Your mind is hazy. You are on deaths door.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 80, "sanity": 80, "items": []}
+            "loss": {"health": 80, "sanity": 30, "items": []}
         }
     },
     {
@@ -57,12 +57,12 @@
             "item": "lamp",
             "description": "You smash the lamp against the vines and yourself, setting you both alight!\nAs you try to put out the flames the vines shrink back beneath into the dirt.\nYou are moderately burned and traumatised\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 50, "sanity": 30, "items": ["lamp"]}
+            "loss": {"health": 50, "sanity": 20, "items": ["lamp"]}
         },
         "failure_condition": {
             "description": "Whatever you try to do, it doesn't work, and you quickly lose consciousness.\nWhen you awaken you find it hard to breathe, but you're alive\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 20, "sanity": 50, "items": []}
+            "loss": {"health": 20, "sanity": 10, "items": []}
         }
     },
     {
@@ -94,7 +94,7 @@
         "success_condition": {
             "item": "lamp",
             "description": "You shine the lamp directly into the fog, as it dissipates you could have sworn you heard a high-pitched squeel.\n\n",
-            "benefit": {"health": 0, "sanity": 10, "items": []},
+            "benefit": {"health": 0, "sanity": 30, "items": []},
             "loss": {"health": 0, "sanity": 0, "items": []}
         },
         "neutral_condition": {
@@ -116,19 +116,19 @@
         "success_condition": {
             "item": "key",
             "description": "You tentatively insert the key into the lock and twist... The lid of the chest creaks open of its own accord. Inside you find a creepy mask.\n\n",
-            "benefit": {"health": 10, "sanity": 0, "items": ["mask"]},
+            "benefit": {"health": 20, "sanity": 0, "items": ["mask"]},
             "loss": {"health": 0, "sanity": 10, "items": []}
         },
         "neutral_condition": {
             "item": "revolver",
             "description": "You fire the revolver into the locking mechanism on the chest.\nThe chest immediately explodes, obliterating it and its contents, and sending you flying backwards.\nWhen you come to, you check what remains of the chest, to no avail.\n Your revolver has been destroyed\n\n",
-            "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 60, "sanity": 20, "items": ["revolver"]}
+            "benefit": {"health": 0, "sanity": 50, "items": []},
+            "loss": {"health": 60, "sanity": 0, "items": ["revolver"]}
         },
         "failure_condition": {
             "description": "No matter what you do you can't seem to get the blasted thing open.\nYou kick the chest in a rage, causing it to growl.\nYou slowly back away...\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 40, "items": []}
+            "loss": {"health": 0, "sanity": 10, "items": []}
         }
     },
     {
@@ -145,12 +145,12 @@
             "item": "bolt",
             "description": "You take the bolt and hand it to the man, who takes it eagerly. He gently brushes his fingers over the dried blood covering it. 'This shall do'\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 20, "items": ["bolt"]}
+            "loss": {"health": 0, "sanity": 5, "items": ["bolt"]}
         },
         "failure_condition": {
             "description": "Having nothing to offer of any interest to the man, he scoffs, turns, and walks away into the shadows.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 40, "items": []}
+            "loss": {"health": 0, "sanity": 20, "items": []}
         }
     },
     {
@@ -161,24 +161,24 @@
             "item": "mask",
             "description": "You quickly take out the mask and put it on your face, joining the revellers in their chanting.\nBefore long a great bellow bursts from the bonfire, and a great demon of flame rises out.\nBefore you can do anything, the demon quickly snatches up every masked reveller and eats them, including you!\nEverything is fire!\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 80, "sanity": 80, "items": ["mask"]}
+            "loss": {"health": 100, "sanity": 80, "items": ["mask"]}
         },
         "neutral_condition": {
             "item": "cross",
             "description": "You quickly duck behind a tree and grasp the cross in the hopes it will protect you from whatever this is.\n As the chanting reaches its crescendo, a great bellow bursts from the bonfire, and a great demon of flame rises out.\nBefore you can do anything, the demon quickly snatches up every masked reveller and eats them, burning them alive!\nFor some reason the demon doesn't sense you, and after taking care of the revellers, waddles away,\nsetting fire to everything in its path.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 30, "items": []}
+            "loss": {"health": 0, "sanity": 15, "items": []}
         },
         "failure_condition": {
             "description": "Having nothing useful, and realising you need to be as far away from here as possible, you leg it\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 45, "items": []}
+            "loss": {"health": 0, "sanity": 25, "items": []}
         }
     },
     {
         "id": "spiders",
         "base_description": "Small spiders can be seen running across the ground in ragged lines. You follow them to a cave mouth, where a giant spider lurks.\n\n",
-        "died_description": "You see stream of small spiders spilling over rocks and dirt in ragged lines. You know whats coming, but you follow them to the meet the Giant Spider anyway.\n\n",
+        "died_description": "You see a stream of small spiders spilling over rocks and dirt in ragged lines. You know whats coming, but you follow them to meet the Giant Spider anyway.\n\n",
         "success_condition": {
             "item": "vinegar",
             "description": "'Dinner?..' the giant spider whispers. You remove the tincture of vinegar from your coat and splash it over you. The acromantula pulls back!\nUnsure, it goes to attack you, but pulls back again at the last second.\nFrozen with fear, you wait out the giant spider as it eventually leaves to find easier prey.\nYou find a small black cube on the ground.\n\n",
@@ -187,12 +187,12 @@
         },
         "neutral_condition": {
             "item": "knife",
-            "description": "'Dinner?..' the giant spider whispers. Before you can do anything, the spiders covers you in silk and strings you up.\nWhen you think they aren't looking you take out your knife and cut through your bindings, tumbling to the ground and breaking ribs upon impact.\nWith no time to waste you run, not daring to look back.\n\n",
-            "benefit": {"health": 0, "sanity": 0, "items": ["cube", "silk"]},
-            "loss": {"health": 20, "sanity": 20, "items": []}
+            "description": "'Dinner?..' the giant spider whispers. Before you can do anything, the spider covers you in silk and strings you up.\nWhen you think they aren't looking you take out your knife and cut through your bindings, tumbling to the ground and breaking ribs upon impact.\nWith no time to waste you run, not daring to look back.\n\n",
+            "benefit": {"health": 0, "sanity": 10, "items": ["cube", "silk"]},
+            "loss": {"health": 20, "sanity": 0, "items": []}
         },
         "failure_condition": {
-            "description": "'Dinner?..' the giant spider whispers. Before you can do anything, the spiders covers you in silk and strings you up. Soon you've been injected with venoms and all goes black.\n\n",
+            "description": "'Dinner?..' the giant spider whispers. Before you can do anything, the spiders covers you in silk and strings you up. Soon you've been injected with venoms, and you vision begins to blur.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
             "loss": {"health": 100, "sanity": 0, "items": []}
         }
@@ -211,12 +211,12 @@
             "item": "cross",
             "description": "You take out your holy crucifix, but the revenant doesn't react.\nYou remember that only when a revenant was a holy man in life, would he react to the crucifix in death.\nThe beast attacks you, you are able to fend it off and run, but not before suffering many bites and cuts.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 20, "sanity": 20, "items": []}
+            "loss": {"health": 15, "sanity": 20, "items": []}
         },
         "failure_condition": {
             "description": "You can't find the right tool to assail the beast, so when it rushes you, all you can do is try to fend it off.\nAs you accumulate bites and scratches, the monster pulls a knife from its own chest and buries it in your thigh.\nScreaming, you pull it out and kill the monster.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": ["knife"]},
-            "loss": {"health": 45, "sanity": 40, "items": []}
+            "loss": {"health": 35, "sanity": 20, "items": []}
         }
     },
     {
@@ -243,8 +243,8 @@
     },
     {
         "id": "door",
-        "base_description": "A lonely door stands in the middle of a clearing. As you approach, you spy that the keyhole seems to be covered in tiny scratches.\n\n",
-        "died_description": "A lonely door stands in the middle of a clearing.\nAs you approach, you see its covered in bloody hand prints, and demonic symbols have been etched into the wood.\n\n",
+        "base_description": "A lonely door stands in front of you. As you approach, you spy that the keyhole seems to be covered in tiny scratches.\n\n",
+        "died_description": "A lonely door stands in front of you.\nAs you approach, you see its covered in bloody hand prints, and demonic symbols have been etched into the wood.\n\n",
         "success_condition": {
             "item": "doorkey",
             "description": "You insert the doorkey into the keyhole and twist. The door bursts open towards you, throwing you backwards.\n\nEnormous tentacles ripple and pulse as they pass through the opening. Before you can be dragged into the hellscape you make a break for it.\n\n",
@@ -255,12 +255,12 @@
             "item": "key",
             "description": "You try to insert the key into the keyhole, but it doesn't quite fit.\nAt your touch the door rattles, and the screams of a thousand souls can be heard on the other side.\nYou back away from the door.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 30, "items": []}
+            "loss": {"health": 0, "sanity": 15, "items": []}
         },
         "failure_condition": {
             "description": "Not having a key, you try the doorknob, but it won't budge.\nAt your touch the door rattles, and the screams of a thousand souls can be heard on the other side.\nYou back away from the door.\n\n",
             "benefit": {"health": 0, "sanity": 0, "items": []},
-            "loss": {"health": 0, "sanity": 35, "items": []}
+            "loss": {"health": 0, "sanity": 25, "items": []}
         }
     }
 ]

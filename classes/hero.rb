@@ -1,4 +1,7 @@
 require "tty-prompt"
+require "rainbow"
+
+require_relative "../methods/sanity_methods"
 
 class Hero
   attr_accessor :name, :health, :sanity, :inventory, :deaths
@@ -9,6 +12,36 @@ class Hero
     @sanity = 100
     @inventory = inventory
     @deaths = deaths
+  end
+
+  def hero_died(encounter_area)
+    sleep 1.5
+
+    if @deaths.include?(encounter_area["id"])
+      if_insane_slow(@sanity, encounter_area["died_description"])
+    else # else display normal description
+      if_insane_slow(@sanity, encounter_area["base_description"])
+    end
+  end
+
+  def compute_result(item, encounter)
+    case item
+    when encounter["success_condition"]["item"]
+      condition = "success_condition"
+      if_insane_slow(@sanity, encounter[condition]["description"])
+      puts "\n"
+      return condition
+    when encounter["neutral_condition"]["item"]
+      condition = "neutral_condition"
+      if_insane_slow(@sanity, encounter[condition]["description"])
+      puts "\n"
+      return condition
+    else
+      condition = "failure_condition"
+      Rainbow(if_insane_slow(@sanity, encounter[condition]["description"])).red
+      puts "\n"
+      return condition
+    end
   end
 
   def adjust_stats(h_change, s_change)
@@ -36,12 +69,12 @@ class Hero
 
     items_add.each do |item|
       if @inventory.include?(item) == false
-        if @inventory.length >= 6
+        if @inventory.length >= 8
           item_list = []
           @inventory.each { |i| item_list << i }
           item_list << "Leave item"
 
-          item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list, per_page: 8, symbols: { marker: ">" })
+          item_to_swap = prompt.select("Your inventory is full, choose an item to swap for #{item}:\n", item_list, per_page: 9, symbols: { marker: ">" })
           system("clear")
           puts woods.to_ascii_art(color: true, width: 100)
 

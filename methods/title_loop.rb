@@ -11,7 +11,6 @@ require_relative "../classes/not_alpha"
 
 # main game loop and its helper methods
 require_relative "main_game_loop"
-require_relative "choose_random"
 require_relative "encounter_results"
 
 # require "audio-playback"
@@ -37,7 +36,7 @@ def title_looper(argument_save)
       current_save = save.find { |save_game| save_game["name"] == argument_save }
     end
 
-    #prompt
+    #prompt conditional
     answer = ""
     if current_save == nil
       answer = title_prompt.select("\n", ["Start", "Save-Games", "Help", "Exit"], symbols: { marker: marker })
@@ -45,7 +44,7 @@ def title_looper(argument_save)
       answer = "Fastload"
     end
 
-    # title screen menu
+    # title screen menu answer checker
     system("clear")
     puts a.to_ascii_art(color: true, width: 140)
     # start
@@ -61,7 +60,9 @@ def title_looper(argument_save)
           system("clear")
           puts a.to_ascii_art(color: true, width: 140)
           begin
+            # check if input is alpha
             input.each_char { |char| alpha_err(check_if_alpha(char)) }
+            # check if input is empty
             empty_err(input)
             final_input = input
             break
