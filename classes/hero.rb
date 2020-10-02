@@ -4,7 +4,7 @@ require "rainbow"
 require_relative "../methods/sanity_methods"
 
 class Hero
-  attr_accessor :name, :health, :sanity, :inventory, :deaths
+  attr_accessor :health, :sanity, :inventory
 
   def initialize(name, inventory, deaths)
     @name = name
@@ -14,9 +14,18 @@ class Hero
     @deaths = deaths
   end
 
+  def save_returner(save_game)
+    if save_game["name"] == @name
+      save_game["inventory"] = @inventory
+      save_game["deaths"] = @deaths
+      return save_game
+    else
+      return nil
+    end    
+  end
+
   def hero_died(encounter_area)
     sleep 1.5
-
     if @deaths.include?(encounter_area["id"])
       if_insane_slow(@sanity, encounter_area["died_description"])
     else # else display normal description
@@ -29,17 +38,14 @@ class Hero
     when encounter["success_condition"]["item"]
       condition = "success_condition"
       if_insane_slow(@sanity, encounter[condition]["description"])
-      puts "\n"
       return condition
     when encounter["neutral_condition"]["item"]
       condition = "neutral_condition"
       if_insane_slow(@sanity, encounter[condition]["description"])
-      puts "\n"
       return condition
     else
       condition = "failure_condition"
       Rainbow(if_insane_slow(@sanity, encounter[condition]["description"])).red
-      puts "\n"
       return condition
     end
   end

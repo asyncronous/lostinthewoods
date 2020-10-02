@@ -102,10 +102,11 @@ def main_game_loop(master_save, curr_save)
       end
 
       #update save file
-      master_save.find do |save_game| save_game["name"] == hero
-        if save_game["name"] == hero.name
-          save_game["inventory"] = hero.inventory
-          save_game["deaths"] = hero.deaths
+      master_save.find do |save_game| 
+        temp = hero.save_returner(save_game)
+        if temp != nil
+          save_game["inventory"] = temp["inventory"]
+          save_game["deaths"] = temp["deaths"]
           curr_save = save_game
         end       
       end
