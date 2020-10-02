@@ -214,8 +214,8 @@
             "loss": {"health": 15, "sanity": 20, "items": []}
         },
         "failure_condition": {
-            "description": "You can't find the right tool to assail the beast, so when it rushes you, all you can do is try to fend it off.\nAs you accumulate bites and scratches, the monster pulls a knife from its own chest and buries it in your thigh.\nScreaming, you pull it out and kill the monster.\n\n",
-            "benefit": {"health": 0, "sanity": 0, "items": ["knife"]},
+            "description": "You can't find the right tool to assail the beast, so when it rushes you, all you can do is try to fend it off.\nAs you accumulate bites and scratches, the monster pulls a knife from its own chest and buries it in your thigh.\nScreaming, you pull it out and kill the monster. In one of its frayed pockets you find a tincture of vinegar.\n\n",
+            "benefit": {"health": 0, "sanity": 0, "items": ["knife", "vinegar"]},
             "loss": {"health": 35, "sanity": 20, "items": []}
         }
     },

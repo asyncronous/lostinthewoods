@@ -23,12 +23,6 @@ def main_game_loop(master_save, curr_save)
   num_areas = 0
   prompt = TTY::Prompt.new(active_color: :red)
 
-  # its shufflin time
-  max_count = encounters.length
-  count = 0
-  areas_dupe = fy_shuffle(area_descriptions)
-  encounters_dupe = fy_shuffle(encounters)
-
   # wake up loop
   loop do
     system("clear")
@@ -41,6 +35,11 @@ def main_game_loop(master_save, curr_save)
 
     if_insane_slow(hero.sanity, "The howl of a wolf jolts you awake! You are... in a forest? You've never been here before... but it seems familiar all the same\n\n")
     marker = ">"
+    # its shufflin time
+    max_count = encounters.length
+    count = 0
+    areas_dupe = fy_shuffle(area_descriptions)
+    encounters_dupe = fy_shuffle(encounters)
 
     # displa stats
     answer = prompt.select(hero.display_stats, ["Continue"], symbols: { marker: marker })
@@ -117,7 +116,7 @@ def main_game_loop(master_save, curr_save)
 
       # save to file
       File.write("./files/save.json", JSON.generate(master_save))
-
+      
       # if won the game
       if dead == false && num_areas > 7
         answer = prompt.select("You think you can see... green! Light! Have you finally escaped!?!\n", ["Wander forward"], symbols: { marker: marker })

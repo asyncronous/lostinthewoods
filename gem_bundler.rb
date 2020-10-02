@@ -2,7 +2,6 @@ require "bundler/inline"
 
 bundler_installed = system("gem list bundler -i")
 
-# puts "#{bundler_installed}!!"
 if bundler_installed == true
   puts "Bundler gem is installed!"
   # install gems on first load if Gemfile.lock is not installed and if user inputs Y
@@ -19,13 +18,9 @@ if bundler_installed == true
   end
 else
   puts "Bundler gem is not installed! Install bunder gem? (Y/N)"
-
   if gets.chomp == "Y"
     system("gem install bundler")
     puts "Bundler is now installed."
     puts "Please rerun this installer to install gem dependencies using bundler."
-    puts "Press Any Key To Close"
-    gets
   end
 end
-
